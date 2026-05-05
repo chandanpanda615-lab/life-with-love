@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maati Katha - The Weight of Belonging</title>
+<meta name="description" content="An invitation-only pilot for a seven-day life-exchange in Sarangada, Kandhamal." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --laterite: #8b3a1f;
+    --sal: #263521;
+    --turmeric: #c8842b;
+    --ash: #e8e1d4;
+    --paper: #f5efe4;
+    --indigo: #1f2a3a;
+    --mist: #d8ded5;
+    --river: #5d7986;
+    --ink: #1b241a;
+    --line: rgba(31, 42, 58, .18);
+    --shadow: 0 20px 70px rgba(31, 42, 58, .18);
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+    --hand: "Caveat", cursive;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  p, h1, h2, h3, h4 { margin: 0; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.05; letter-spacing: 0; }
+  h1 { font-size: clamp(54px, 8vw, 124px); max-width: 980px; }
+  h2 { font-size: clamp(34px, 5vw, 72px); max-width: 820px; }
+  h3 { font-size: clamp(23px, 2.4vw, 36px); }
+  button { font: inherit; }
+
+  .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+  .hand { font-family: var(--hand); font-size: 24px; color: var(--laterite); }
+  .muted { color: rgba(27, 36, 26, .72); }
+  .dark .muted, .hero .muted { color: rgba(245, 239, 228, .78); }
+
+  .site-nav {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px clamp(20px, 4vw, 42px);
+    color: var(--paper);
+    background: linear-gradient(to bottom, rgba(31, 42, 58, .74), rgba(31, 42, 58, 0));
+  }
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-family: var(--serif);
+    font-size: 23px;
+    line-height: 1;
+  }
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    color: var(--paper);
+  }
+  .brand-logo .soil { stroke: var(--laterite); }
+  .brand-logo .sun { fill: var(--turmeric); }
+  .brand-logo .frame,
+  .brand-logo .path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .nav-links a {
+    padding: 8px 0;
+    border-bottom: 1px solid transparent;
+  }
+  .nav-links a:hover { border-color: var(--turmeric); }
+
+  .hero {
+    min-height: 92vh;
+    position: relative;
+    color: var(--paper);
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+    background:
+      linear-gradient(110deg, rgba(31, 42, 58, .84) 0%, rgba(31, 42, 58, .62) 45%, rgba(31, 42, 58, .22) 100%),
+      url("assets/hills-mist.jpg") center/cover no-repeat;
+  }
+  .hero:after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 35vh;
+    background: linear-gradient(to top, rgba(31, 42, 58, .72), rgba(31, 42, 58, 0));
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 130px 0 42px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    align-items: end;
+    gap: 44px;
+  }
+  .hero-copy p {
+    margin-top: 24px;
+    max-width: 660px;
+    font-size: clamp(18px, 2vw, 23px);
+    color: rgba(245, 239, 228, .88);
+  }
+  .hero-status {
+    border: 1px solid rgba(245, 239, 228, .34);
+    background: rgba(31, 42, 58, .38);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 22px;
+  }
+  .hero-status b {
+    display: block;
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1.05;
+    margin: 12px 0 10px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 20px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn.primary { background: var(--turmeric); color: var(--indigo); }
+  .btn.secondary { color: var(--paper); border-color: rgba(245, 239, 228, .55); }
+  .btn:hover { transform: translateY(-1px); }
+
+  .below-hero {
+    background: var(--indigo);
+    color: var(--paper);
+    border-top: 1px solid rgba(245, 239, 228, .15);
+  }
+  .signal-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(245, 239, 228, .16);
+  }
+  .signal {
+    min-height: 116px;
+    padding: 22px;
+    background: var(--indigo);
+  }
+  .signal strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--turmeric);
+    margin-bottom: 8px;
+  }
+  .signal span { color: rgba(245, 239, 228, .75); font-size: 14px; }
+
+  section { padding: 110px 0; }
+  .earth-zoom {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 0;
+  }
+  .zoom-layout {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    min-height: 100vh;
+  }
+  .zoom-copy {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    padding: 120px clamp(22px, 4vw, 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--indigo);
+  }
+  .zoom-copy p:not(.hand) {
+    margin-top: 22px;
+    max-width: 430px;
+    color: rgba(245, 239, 228, .76);
+    font-size: 17px;
+  }
+  .zoom-rail {
+    position: relative;
+    padding: 100px clamp(20px, 5vw, 72px) 100px 64px;
+  }
+  .zoom-rail:before {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 135px;
+    bottom: 135px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--turmeric), var(--laterite), transparent);
+  }
+  .zoom-step {
+    min-height: 70vh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 210px;
+    gap: 22px;
+    align-items: center;
+    position: relative;
+  }
+  .zoom-step:before {
+    content: "";
+    position: absolute;
+    left: -42px;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--turmeric);
+    border: 3px solid var(--indigo);
+    box-shadow: 0 0 0 1px rgba(245, 239, 228, .42);
+  }
+  .zoom-frame {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 239, 228, .18);
+    box-shadow: 0 24px 90px rgba(0, 0, 0, .28);
+    background: #111;
+  }
+  .zoom-frame img {
+    width: 100%;
+    aspect-ratio: 1.95 / 1;
+    object-fit: cover;
+  }
+  .zoom-label {
+    align-self: center;
+    padding: 18px 0;
+  }
+  .zoom-label b {
+    display: block;
+    font-family: var(--serif);
+    font-size: 34px;
+    line-height: 1;
+    color: var(--turmeric);
+    margin-bottom: 10px;
+  }
+  .zoom-label span {
+    display: block;
+    color: rgba(245, 239, 228, .72);
+    font-size: 14px;
+  }
+  .zoom-video-card {
+    position: relative;
+    margin-bottom: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 239, 228, .2);
+    background: #111;
+    box-shadow: 0 24px 90px rgba(0, 0, 0, .3);
+  }
+  .zoom-video-card video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #111;
+  }
+  .zoom-video-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 18px;
+    color: rgba(245, 239, 228, .76);
+    font-size: 14px;
+    border-top: 1px solid rgba(245, 239, 228, .16);
+  }
+  .zoom-video-caption b {
+    color: var(--turmeric);
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  .intro {
+    background: var(--paper);
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 66px;
+    align-items: start;
+  }
+  .lead {
+    font-family: var(--serif);
+    font-size: clamp(27px, 3.4vw, 48px);
+    line-height: 1.14;
+    color: var(--sal);
+  }
+  .intro-copy {
+    display: grid;
+    gap: 20px;
+    font-size: 17px;
+  }
+  .truth-list {
+    margin-top: 34px;
+    display: grid;
+    gap: 12px;
+  }
+  .truth-item {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .truth-item b {
+    color: var(--laterite);
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  .direction {
+    background: var(--sal);
+    color: var(--paper);
+    overflow: hidden;
+  }
+  .direction-grid {
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    gap: 54px;
+    align-items: center;
+  }
+  .map-panel {
+    min-height: 540px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow);
+    background:
+      linear-gradient(to bottom, rgba(31, 42, 58, .05), rgba(31, 42, 58, .45)),
+      url("assets/satellite.jpg") center/cover no-repeat;
+  }
+  .map-panel:before {
+    content: "";
+    position: absolute;
+    inset: 26px;
+    border: 1px solid rgba(245, 239, 228, .42);
+    border-radius: 6px;
+  }
+  .map-note {
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    bottom: 26px;
+    padding: 18px;
+    border-radius: 6px;
+    background: rgba(31, 42, 58, .72);
+    color: var(--paper);
+  }
+  .route {
+    display: grid;
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .route-row {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 22px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(245, 239, 228, .18);
+  }
+  .route-row b {
+    font-family: var(--serif);
+    color: var(--turmeric);
+    font-size: 27px;
+    line-height: 1;
+  }
+
+  .days {
+    background: var(--mist);
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 36px;
+    margin-bottom: 44px;
+  }
+  .section-head p { max-width: 430px; }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    border-top: 1px solid rgba(31, 42, 58, .25);
+    border-left: 1px solid rgba(31, 42, 58, .25);
+  }
+  .day {
+    min-height: 260px;
+    padding: 22px 18px;
+    border-right: 1px solid rgba(31, 42, 58, .25);
+    border-bottom: 1px solid rgba(31, 42, 58, .25);
+    background: rgba(245, 239, 228, .55);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .day b {
+    font-family: var(--serif);
+    font-size: 38px;
+    color: var(--laterite);
+    line-height: 1;
+  }
+  .day h3 {
+    font-size: 24px;
+    margin: 18px 0 12px;
+  }
+  .day p { font-size: 14px; color: rgba(27, 36, 26, .72); }
+  .day.pending {
+    background: var(--sal);
+    color: var(--paper);
+  }
+  .day.pending p { color: rgba(245, 239, 228, .74); }
+  .day.pending b { color: var(--turmeric); }
+
+  .fieldwork {
+    background: var(--paper);
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .photo-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .photo-card {
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--ash);
+    border: 1px solid var(--line);
+  }
+  .photo-card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+  }
+  .photo-card small {
+    display: block;
+    padding: 13px 14px;
+    color: rgba(27, 36, 26, .68);
+  }
+  .checklist {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .check {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 18px;
+    background: var(--paper);
+  }
+  .check span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--laterite);
+    color: var(--paper);
+    font-weight: 700;
+  }
+
+  .journal {
+    background: var(--indigo);
+    color: var(--paper);
+  }
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .entry {
+    min-height: 310px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: var(--sal);
+    border: 1px solid rgba(245, 239, 228, .16);
+  }
+  .entry img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    filter: saturate(.9);
+  }
+  .entry-body { padding: 22px; }
+  .entry .eyebrow { color: var(--turmeric); margin-bottom: 10px; }
+  .entry h3 { font-size: 29px; margin-bottom: 14px; }
+  .entry p { color: rgba(245, 239, 228, .74); font-size: 15px; }
+
+  .request {
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(245, 239, 228, .94), rgba(245, 239, 228, .84), rgba(245, 239, 228, .38)),
+      url("assets/fields-road.jpg") center/cover no-repeat;
+  }
+  .request-box {
+    width: min(680px, 100%);
+  }
+  .request-box p {
+    margin: 22px 0 30px;
+    max-width: 560px;
+    font-size: 18px;
+  }
+  .mail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .mail-note {
+    color: rgba(27, 36, 26, .65);
+    font-size: 14px;
+  }
+
+  footer {
+    background: var(--sal);
+    color: rgba(245, 239, 228, .7);
+    padding: 28px 0;
+    font-size: 14px;
+  }
+  .footer-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .hero-grid,
+    .intro-grid,
+    .direction-grid,
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-status { max-width: 520px; }
+    .signal-strip { grid-template-columns: repeat(2, 1fr); }
+    .zoom-layout { grid-template-columns: 1fr; }
+    .zoom-copy {
+      position: relative;
+      min-height: auto;
+      padding: 84px 24px 34px;
+    }
+    .zoom-rail { padding: 20px 22px 70px 54px; }
+    .zoom-step {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 24px 0;
+    }
+    .zoom-step:before { left: -32px; top: 32px; }
+    .section-head { display: grid; }
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+    .journal-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 620px) {
+    .wrap { width: min(100% - 28px, 1180px); }
+    .site-nav { padding: 14px; }
+    .brand-mark { font-size: 20px; }
+    .hero { min-height: 94vh; }
+    .hero-inner { padding-top: 110px; }
+    .hero-actions, .mail-row { display: grid; }
+    .btn { width: 100%; }
+    .signal-strip, .timeline { grid-template-columns: 1fr; }
+    section { padding: 78px 0; }
+    .truth-item, .route-row { grid-template-columns: 1fr; gap: 8px; }
+    .map-panel { min-height: 420px; }
+    .photo-card img { height: 280px; }
+    .footer-grid { display: grid; }
+  }
+</style>
+</head>
+
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand-mark" href="#top" aria-label="Maati Katha home">
+      <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path class="soil" d="M7 38.5c7.5-2.7 14.7-2.7 21.7 0 4.3 1.6 8.4 1.7 12.3.3" />
+        <path class="frame" d="M12 39V13.5c0-3.1 2.2-5.5 5.2-5.5h13.6c3 0 5.2 2.4 5.2 5.5V39" />
+        <path class="path" d="M18.3 35.6V14.4l9.7-2.7v25.1l-9.7-1.2Z" />
+        <path class="path" d="M12 39h24" />
+        <circle class="sun" cx="32.6" cy="30.4" r="5.9" />
+      </svg>
+      <span>Maati Katha</span>
+    </a>
+    <div class="nav-links">
+      <a href="#truth">Project</a>
+      <a href="#zoom">Zoom</a>
+      <a href="#direction">Direction</a>
+      <a href="#days">Seven days</a>
+      <a href="#fieldwork">Fieldwork</a>
+      <a href="#journal">Journal</a>
+      <a href="#request">Pilot</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-inner">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Sarangada, Kandhamal</div>
+            <h1>Maati Katha</h1>
+            <p>The Weight of Belonging. Seven days in Sarangada, shaped by red soil, eastern fields, a market spine, and the hills to the west.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#days">See the seven days</a>
+              <a class="btn secondary" href="#direction">Read the place</a>
+            </div>
+          </div>
+
+          <aside class="hero-status" aria-label="Project status">
+            <div class="eyebrow">Current status</div>
+            <b>Invitation-only pilot.</b>
+            <p class="muted">The public stay opens after the host model, routes, and village permissions are settled.</p>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <div class="below-hero">
+      <div class="wrap signal-strip" aria-label="Project signals">
+        <div class="signal"><strong>07</strong><span>days as a designed arc, not a package tour</span></div>
+        <div class="signal"><strong>01</strong><span>village, Sarangada, read through land and daily life</span></div>
+        <div class="signal"><strong>20.227</strong><span>north, approximately, in Kandhamal district</span></div>
+        <div class="signal"><strong>West</strong><span>the direction the day moves toward</span></div>
+      </div>
+    </div>
+
+    <section class="earth-zoom" id="zoom">
+      <div class="zoom-layout">
+        <div class="zoom-copy">
+          <p class="hand">From map to ground.</p>
+          <h2>Five stops into Sarangada.</h2>
+          <p>A vertical descent from the larger Kandhamal landscape into the village logic: district, hills, settlement, spine, and the westward edge.</p>
+        </div>
+
+        <div class="zoom-rail" aria-label="Google Earth style zoom sequence">
+          <div class="zoom-video-card">
+            <video controls muted playsinline preload="metadata" poster="assets/earth-studio-third-round-poster.jpg">
+              <source src="assets/earth-studio-third-round.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <div class="zoom-video-caption">
+              <b>Earth Studio cut</b>
+              <span>25 seconds, 1920x1080. A working spatial pass for the site.</span>
+            </div>
+          </div>
+
+          <article class="zoom-step">
+            <div class="zoom-frame"><img src="assets/earth-zoom-01.jpg" alt="Wide Google Earth frame of the region around Kandhamal" /></div>
+            <div class="zoom-label"><b>01</b><span>Region: Eastern Ghats, rivers, forest, and road distance.</span></div>
+          </article>
+          <article class="zoom-step">
+            <div class="zoom-frame"><img src="assets/earth-zoom-02.jpg" alt="Google Earth frame closing in toward Sarangada in Kandhamal" /></div>
+            <div class="zoom-label"><b>02</b><span>District: Kandhamal as terrain before it becomes itinerary.</span></div>
+          </article>
+          <article class="zoom-step">
+            <div class="zoom-frame"><img src="assets/earth-zoom-03.jpg" alt="Google Earth frame showing the Sarangada area closer up" /></div>
+            <div class="zoom-label"><b>03</b><span>Village: the settlement appears as a line, not a resort.</span></div>
+          </article>
+          <article class="zoom-step">
+            <div class="zoom-frame"><img src="assets/earth-zoom-04.jpg" alt="Google Earth frame showing the village spine and surrounding land" /></div>
+            <div class="zoom-label"><b>04</b><span>Spine: market road, houses, fields, and the southern entry.</span></div>
+          </article>
+          <article class="zoom-step">
+            <div class="zoom-frame"><img src="assets/earth-zoom-05.jpg" alt="Closest Google Earth frame for the village research point" /></div>
+            <div class="zoom-label"><b>05</b><span>Threshold: eastern fields to western hills, the seven-day arc begins.</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro" id="truth">
+      <div class="wrap intro-grid">
+        <div>
+          <p class="hand">No fake experiences. Just life as it is.</p>
+          <p class="lead">This is not a scenic rural escape. It is a slow stay built from the ordinary geography of one village.</p>
+        </div>
+        <div class="intro-copy">
+          <p>Maati Katha starts with a simple refusal: do not dress village life up for visitors, and do not hide the present day to make it look older. The road, the phone, the tin roof, the chulha, the field, and the power line all belong in the same frame.</p>
+          <p>The stay is designed like a piece of field writing. You arrive, walk, eat, listen, notice what is public, and learn what is not yours to enter.</p>
+          <div class="truth-list">
+            <div class="truth-item"><b>Land</b><span>Red lateritic soil, deep clay, monsoon water, paddy, and the neighbouring turmeric belt.</span></div>
+            <div class="truth-item"><b>Life</b><span>A mixed village with everyday coexistence, not a single culture performed on cue.</span></div>
+            <div class="truth-item"><b>Limit</b><span>Some places are private, some stories are sensitive, and some silences should stay intact.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="direction dark" id="direction">
+      <div class="wrap direction-grid">
+        <div class="map-panel" role="img" aria-label="Satellite view of the Kandhamal landscape">
+          <div class="map-note">
+            <div class="eyebrow">Layer 1 finding</div>
+            <p>Sarangada is a west-flowing village: the day begins toward fields and ends toward the hills.</p>
+          </div>
+        </div>
+        <div>
+          <p class="hand">A village has a direction.</p>
+          <h2>The day moves from cultivation into forest.</h2>
+          <div class="route">
+            <div class="route-row"><b>East</b><p class="muted">Fields, morning light, agricultural work, the social beginning of the day.</p></div>
+            <div class="route-row"><b>Core</b><p class="muted">The market spine, houses, errands, conversations, visible daily life.</p></div>
+            <div class="route-row"><b>West</b><p class="muted">Hills, forest paths, dusk, and the parts of the village that must be approached with permission.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="days" id="days">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="hand">The arc, not the final itinerary.</p>
+            <h2>Seven days arranged west.</h2>
+          </div>
+          <p class="muted">The week follows the village's own movement: south entry, eastern fields, market core, water, turmeric nearby, and the hills to the west.</p>
+        </div>
+
+        <div class="timeline" aria-label="Seven day draft structure">
+          <article class="day"><div><b>01</b><h3>Arrival</h3><p>Enter from the Baliguda side. Tea, rest, and the first walk along the market spine.</p></div><span class="eyebrow">South entry</span></article>
+          <article class="day"><div><b>02</b><h3>Fields</h3><p>Eastern and northern agricultural belt. Paddy, bunds, soil, and the morning rhythm.</p></div><span class="eyebrow">Verify route</span></article>
+          <article class="day"><div><b>03</b><h3>Market</h3><p>Lower market, upper market, public life, language, errands, and everyday exchange.</p></div><span class="eyebrow">Observe first</span></article>
+          <article class="day pending"><div><b>04</b><h3>Haladi</h3><p>Neighbouring turmeric fields only with grower consent, exact route, season, and payment settled.</p></div><span class="eyebrow">Not yet public</span></article>
+          <article class="day pending"><div><b>05</b><h3>Water</h3><p>The pond, well, and ritual layer require names, history, and permission before writing.</p></div><span class="eyebrow">Layer 4</span></article>
+          <article class="day pending"><div><b>06</b><h3>West</h3><p>Forest path and hill side. A local guide decides what is safe, private, or not for visitors.</p></div><span class="eyebrow">Fieldwork</span></article>
+          <article class="day"><div><b>07</b><h3>Leaving</h3><p>Departure with fewer souvenirs and a more accurate sense of what belonging weighs.</p></div><span class="eyebrow">Close gently</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="fieldwork" id="fieldwork">
+      <div class="wrap work-grid">
+        <div class="photo-stack">
+          <div class="photo-card">
+            <img src="assets/house-road.jpg" alt="A rural house, road, and surrounding landscape from the Sarangada research photos" />
+            <small>Existing visual material is useful as a research prompt. Final public photography should be single-subject, consent-based, and dated.</small>
+          </div>
+        </div>
+
+        <div>
+          <p class="hand">Before anyone is invited.</p>
+          <h2>Make the project true in the village, then true on the website.</h2>
+          <div class="checklist" aria-label="Fieldwork checklist">
+            <div class="check"><span>1</span><p>Confirm host household, sleeping space, bathing, food, charging, privacy, and emergency plan.</p></div>
+            <div class="check"><span>2</span><p>Ask who is comfortable being photographed, interviewed, named, translated, or left out.</p></div>
+            <div class="check"><span>3</span><p>Map the spine, pond, public institutions, field paths, and western route with GPS.</p></div>
+            <div class="check"><span>4</span><p>Identify what guests must never photograph: children, rituals, private homes, sacred spaces, conflict-sensitive sites.</p></div>
+            <div class="check"><span>5</span><p>Run one private pilot with two trusted guests before any public requests are accepted.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journal dark" id="journal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="hand">Journal, not brochure.</p>
+            <h2>Write from evidence.</h2>
+          </div>
+          <p class="muted">The site should sound like someone paying attention, not like a tourism campaign trying to sound deep.</p>
+        </div>
+
+        <div class="journal-grid">
+          <article class="entry">
+            <img src="assets/hills-mist.jpg" alt="Misty green hills from the Kandhamal visual research" />
+            <div class="entry-body">
+              <div class="eyebrow">Entry 01</div>
+              <h3>The Day Flows West</h3>
+              <p>The strongest essay. It lets geography do the brand work without over-selling the stay.</p>
+            </div>
+          </article>
+          <article class="entry">
+            <img src="assets/fields-road.jpg" alt="Fields, red road, and green village landscape from the research photos" />
+            <div class="entry-body">
+              <div class="eyebrow">Entry 02</div>
+              <h3>On Coexistence</h3>
+              <p>Mud, metal, phones, fields, roads. Do not photograph only the old. The modern is also true.</p>
+            </div>
+          </article>
+          <article class="entry">
+            <img src="assets/satellite.jpg" alt="Satellite view used for the Sarangada spatial research layer" />
+            <div class="entry-body">
+              <div class="eyebrow">Entry 03</div>
+              <h3>Field Notes</h3>
+              <p>Names of paths, ponds, houses, shrines, fields, and boundaries should come from people, not guesses.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="request" id="request">
+      <div class="wrap">
+        <div class="request-box">
+          <p class="hand">Quietly, after the work.</p>
+          <h2>Build the pilot before opening the door.</h2>
+          <p>For now, the practical work is simple: finish the truth audit, visit Sarangada with a checklist, and run one private test stay before taking requests from strangers.</p>
+          <div class="mail-row">
+            <a class="btn primary" href="truth-audit.md">Open truth audit</a>
+            <span class="mail-note">Use it as the working checklist before the next field visit.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <span>Maati Katha - Sarangada, Kandhamal</span>
+      <span>Research site redesign, May 2026</span>
+    </div>
+  </footer>
+</body>
+</html>

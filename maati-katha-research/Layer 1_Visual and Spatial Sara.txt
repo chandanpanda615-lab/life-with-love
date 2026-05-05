@@ -1,0 +1,165 @@
+# Layer 1 — Visual and Spatial: Sarangada, Kandhamal
+
+*Research log, Maati Katha project. Date: 30 April 2026. Sources: ISRO Bhuvan KYR (Know Your Resources) tool, NRSC thematic data layers, on-the-ground knowledge from native resident.*
+
+---
+
+## 1. Location and administrative identity
+
+Sarangada (also rendered Sarangada / Sarangoda in some records) is a village in **Nuagaon block, Kandhamal district, Odisha**, with pincode **762106**. The village center sits at approximately **20.227°N, 84.124°E**.
+
+Administrative hierarchy:
+- State: Odisha
+- District: Kandhamal (carved out of the older Phulbani district in 1994; Bhuvan still labels the district as "Phulabani / Kandhamal" in some legacy datasets)
+- Block: Nuagaon
+- Pincode: 762106
+
+Connectivity context for visitors: the nearest railhead is **Berhampur (~150 km)**, with onward rail options at Bhubaneswar, Sambalpur, and Muniguda. The nearest airport is approximately **250 km away**. There is no rail line into Kandhamal as of this date. Access is by road — private vehicle or bus — which itself is part of the experience the brand is selling.
+
+## 2. Regional setting
+
+Sarangada lies in the **Eastern Ghats belt of Odisha**, in the Phulbani–Phiringia interior. Kandhamal as a district is among the most heavily forested in the state. The terrain is undulating, dominated by ancient Precambrian rocks (khondalite and charnockite), and the soils are predominantly red and lateritic — the geological foundation of the famous Kandhamal turmeric.
+
+The village sits within a transitional drainage zone where the Mahanadi and Rushikulya river basins meet across watersheds, though the immediate stream network around Sarangada drains through local nalas into one of these systems. Precise watershed identification is deferred to Layer 2 research.
+
+## 3. Geomorphology and land character (NRSC data)
+
+Six points were sampled across the village and immediate surroundings using the Bhuvan Know Your Resources tool. The findings are consistent and tell a clear story.
+
+**Geomorphological setting**: Sarangada is built on a **pediment** — a gently sloping erosional surface at the foot of higher ground. The village proper sits on stable, gently inclined terrain. The barren and forested land to the southwest is classified as **"Hills and Valleys,"** confirming that the elevation rises in that direction.
+
+**Land cover within the village footprint**: Two sampled points within the residential cluster returned a **"Builtup"** classification with **"Nil"** land degradation, indicating the village core sits on stable, undisturbed ground.
+
+**Land cover in the agricultural belt**: Three points sampled to the north of the village (along the 20.231°–20.234°N latitude band) all returned **"Agriculture"** as land type, with **"Water Erosion"** as the active land degradation process. This indicates the cultivated belt experiences monsoon runoff strong enough to register at NRSC's mapping resolution — a normal pattern for sloped agricultural land in the Eastern Ghats.
+
+**Land cover to the southwest**: One point at 20.2233°N, 84.1180°E returned **"Barren"** land type with **"Hills and Valleys"** geomorphology — confirming the forested/scrub hill country that residents identify as the jungle side.
+
+**Soil characteristics (uniform across all six points)**:
+- Productivity: Highly Productive
+- Texture: Fine (clay-rich, water-retentive)
+- Depth: Deep
+- Erosion class: Moderate
+- Flood hazard: No
+
+The uniformity is itself a finding: Sarangada sits on consistently good agricultural soil, deep and fine-textured, with no flood risk at any sampled point. The combination of pediment positioning (well-drained, above flood level) and deep clay soils is a textbook setting for stable, long-established agricultural settlement.
+
+## 4. Village morphology — as described by a native resident
+
+Satellite data describes the physical surface. Lived knowledge describes the structure. The following is documented from a Sarangada native and anchors the spatial layer in human experience.
+
+**Village layout**: Sarangada is a **linear village along a market road**, running roughly **east–west**, approximately **1 km in length** along its main spine.
+
+**Entry point**: The southern entry to the village comes from the **Baliguda side**. At the entry point, the road branches: a left turn leads to the **lower market**, a right turn leads to the **upper market**. The village core — the commercial heart — is at the middle of this spine.
+
+**Cardinal orientation as lived**:
+- **East**: sunrise direction. Open agricultural land, the day's beginning. Fields visible in NRSC data extend approximately 800m–1.2 km north and east of the village.
+- **West**: sunset direction. The jungle side. Hills and valleys, barren and forested terrain rising into the Eastern Ghats. The day's ending.
+- **North**: the agricultural belt. The fields where the village's food and turmeric come from. NRSC data shows water-erosion patterns here, consistent with monsoon-fed cultivation on sloping pediment.
+- **South**: the road in. The connection to the wider world via Baliguda.
+
+**Annotated reference points** (from native annotation on Bhuvan satellite imagery):
+- **Point 1** (south entry, near 20.224°N): main village entrance from Baliguda; market road branches into upper and lower market from here. A pond is visible just north of this point, likely a traditional village tank.
+- **Point 2** (north, in residential cluster): residential upper edge; native resident's home is in this zone.
+- **Point 3** (west): jungle side, dense forest cover visible on imagery, sunset direction.
+- **Point 4** (center): the market core.
+- **Point 5** (east): sunrise direction, open cultivated land.
+
+## 5. The defining spatial fact
+
+Reading the satellite data and the lived geography together produces one observation that no other layer of research can replicate:
+
+**Sarangada is a west-flowing village.** The sun rises over the cultivated, ordered, social side of the village — the fields, the market, the home. It travels across the sky during the working day, illuminating life. It sets into the jungle, the elemental, the more-than-human side. The village sits on the threshold between cultivation and wilderness, between the social and the elemental, with its daily rhythm defined by light moving from one to the other.
+
+This is not metaphor imposed on the data; it is the literal geography of the place. It will become the structural backbone of how the seven-day stay is designed and described.
+
+## 6. Hydrology — preliminary
+
+A pond is visible on satellite imagery near the southern entry of the village (just north of Point 1). This is likely a traditional village tank, of the kind universal to rural Odisha — used historically for bathing, cattle, ritual immersion, and irrigation buffer.
+
+The agricultural belt to the north shows water-erosion patterns in NRSC data, consistent with monsoon runoff flowing across cultivated slopes. The local nala network, the watershed identity (whether Mahanadi or Rushikulya tributary), and the perennial vs seasonal stream pattern are deferred to Layer 2 research, where the Survey of India 1:50,000 toposheet (sheet number to be confirmed in the 73 D/E/F series) will provide the definitive data.
+
+## 7. Path network — preliminary
+
+The satellite imagery and Bhuvan data show:
+- A main road entering from the south (Baliguda side)
+- The 1km market spine running roughly east-west through the village
+- Visible field-track network in the agricultural belt to the north
+- Forest paths into the western hills are not resolvable at Bhuvan's current resolution
+
+These will be definitively mapped in Layer 2 using the Survey of India toposheet, and ground-truthed in fieldwork using GPS-tracked walks (OsmAnd or similar).
+
+## 8. OpenStreetMap gap analysis — preliminary
+
+Cursory inspection indicates that interior Kandhamal, including Sarangada, has minimal OpenStreetMap coverage beyond the main road. The internal lane network of the village, the school, the temple(s), the pond, the boundary between cultivated land and forest, the jungle paths — none are currently mapped on OSM.
+
+This is a documented opportunity. Systematic on-the-ground OSM mapping of Sarangada is identified as a fieldwork action item and will produce both a public good (the village exists on the open map for the first time) and brand content (the journal section can document the act of mapping).
+
+A formal feature-by-feature gap list will be compiled during the first dedicated fieldwork visit.
+
+## 9. Demographic and cultural layer — pointer to Layer 4
+
+Sarangada is a **mixed village**, not a single-community settlement. The composition includes Kondh tribal families (the indigenous Adivasi presence of Kandhamal), Brahmin families, Kshatriya families, other tribal communities, and a population of converted Christians.
+
+**Languages spoken**:
+- **Odia** is the dominant everyday language across all communities.
+- **Kui** (a Dravidian language of the Kondh community) is spoken within tribal households.
+- **Hindi** is increasingly understood across the village, particularly among younger residents, due to penetration of Instagram and YouTube content.
+
+This demographic and linguistic layering is a Layer 4 (Living Culture) subject, but it is noted here because it shapes how the spatial layer is read: the village is not one community's physical artifact, but a shared inhabitation of a single piece of geography by multiple communities over time. The market spine, the residential clusters (which in mixed Indian villages typically show some degree of community-wise grouping), and the relationship to the surrounding land are subjects for fieldwork documentation.
+
+## 10. Summary table — Sarangada, spatial layer
+
+| Dimension | Finding |
+|---|---|
+| Coordinates | ~20.227°N, 84.124°E |
+| Administrative | Nuagaon block, Kandhamal district, Odisha. Pincode 762106 |
+| Regional setting | Eastern Ghats interior, Phulbani–Phiringia belt |
+| Geomorphology | Pediment (village); Hills and Valleys (west) |
+| Soil | Deep, fine-textured, highly productive, moderately erosion-prone |
+| Land degradation | Nil in village core; water erosion in agricultural belt |
+| Flood hazard | None at any sampled point |
+| Village layout | Linear, east–west, ~1 km market spine |
+| Entry | From south, Baliguda side |
+| Cardinal logic | Sunrise east (fields); sunset west (jungle) |
+| Internal structure | Lower market and upper market branching from southern entry; residential clusters; village tank near south entry |
+| Demographic | Mixed — Kondh, Brahmin, Kshatriya, other tribes, converted Christians |
+| Languages | Odia (dominant), Kui (Kondh households), Hindi (increasing via reels) |
+| OSM coverage | Minimal beyond main road — fieldwork mapping opportunity |
+
+## 11. Open questions for fieldwork
+
+The following cannot be answered from satellite or desk data and are recorded for Layer 4 fieldwork:
+
+1. The name and history of the pond visible near the southern entry.
+2. The location of the village school, temple(s), church, and any tribal shrine (Dharni Penu or otherwise) — none currently on OSM.
+3. The presence and location of any sacred grove in the western hills.
+4. The boundary between Sarangada's land and the next village's land.
+5. The actual jungle path used by villagers to enter the western hill country.
+6. The village's relationship to nearby hamlets (sahis or padas) — whether Sarangada is one of several hamlets that share a name or is itself a single nucleus.
+7. The local name(s) for the southwest hills and any associated stories.
+8. The historical layer: when was Sarangada founded, and by which community first.
+
+## 12. Brand-relevant findings (for Maati Katha use)
+
+Three findings from this layer translate directly into brand and content material:
+
+**Finding 1**: The village sits on **non-degraded, deep, productive soil with no flood risk**. This is a quietly extractable claim ("our land is not degraded") and a foundation for the agricultural authenticity the brand promises.
+
+**Finding 2**: The village has a **west-flowing daily rhythm** — sunrise over the fields, sunset into the jungle. This is the natural structural metaphor for the seven-day stay arc and for the visual identity of the brand.
+
+**Finding 3**: Sarangada is a **mixed-community village**, which is a stronger and more honest brand position than a single-community village would offer. It allows *Maati Katha* to tell the truer story of rural India as layered coexistence rather than performing a single cultural identity.
+
+## 13. Status
+
+**Layer 1 — Visual and Spatial: Closed at first-pass depth.**
+
+Refinement will come from:
+- Survey of India 1:50,000 toposheet (Layer 2 work)
+- Fieldwork mapping (OSM contribution and ground-truthing)
+- Photographic documentation across all four cardinal directions during fieldwork
+
+The data captured here is sufficient to proceed to Layer 2 (The Land Itself — geology, gazetteer, soil chemistry, agricultural history, the turmeric story).
+
+---
+
+*End of Layer 1 draft. Save as `01-visual/layer-1-sarangada-spatial-final.md`. The corresponding Bhuvan screenshots, the annotated village image, and the six NRSC sample-point records belong in the same folder.*
