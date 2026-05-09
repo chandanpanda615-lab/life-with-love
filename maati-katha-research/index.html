@@ -4,7 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Maati Katha - The Weight of Belonging</title>
-<meta name="description" content="An invitation-only pilot for a seven-day life-exchange in Sarangada, Kandhamal." />
+<meta name="description" content="A seven-day life-exchange pilot being carefully designed in Sarangada, Kandhamal." />
+<link rel="icon" href="assets/maati-katha-logo.svg" type="image/svg+xml" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,60 +113,52 @@
   .nav-links a:hover { border-color: var(--turmeric); }
 
   .hero {
-    min-height: 92vh;
+    min-height: 86vh;
     position: relative;
     color: var(--paper);
     display: flex;
-    align-items: end;
+    align-items: stretch;
     overflow: hidden;
     background:
-      linear-gradient(110deg, rgba(31, 42, 58, .84) 0%, rgba(31, 42, 58, .62) 45%, rgba(31, 42, 58, .22) 100%),
-      url("assets/hills-mist.jpg") center/cover no-repeat;
+      linear-gradient(100deg, rgba(27, 36, 26, .94) 0%, rgba(27, 36, 26, .76) 42%, rgba(139, 58, 31, .22) 100%),
+      url("assets/fields-road.jpg") left center/cover no-repeat;
   }
   .hero:after {
     content: "";
     position: absolute;
-    inset: auto 0 0 0;
-    height: 35vh;
-    background: linear-gradient(to top, rgba(31, 42, 58, .72), rgba(31, 42, 58, 0));
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(31, 42, 58, .66), rgba(31, 42, 58, 0) 48%),
+      radial-gradient(circle at 78% 26%, rgba(200, 132, 43, .25), transparent 30%);
     pointer-events: none;
   }
   .hero-inner {
     position: relative;
     z-index: 1;
-    padding: 130px 0 42px;
+    padding: 112px 0 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
   }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 330px;
-    align-items: end;
-    gap: 44px;
+  .hero-copy {
+    max-width: 920px;
   }
-  .hero-copy p {
+  .hero-kicker {
+    color: var(--turmeric);
+    margin-bottom: 18px;
+  }
+  .hero-copy p:not(.eyebrow) {
     margin-top: 24px;
-    max-width: 660px;
+    max-width: 860px;
     font-size: clamp(18px, 2vw, 23px);
-    color: rgba(245, 239, 228, .88);
-  }
-  .hero-status {
-    border: 1px solid rgba(245, 239, 228, .34);
-    background: rgba(31, 42, 58, .38);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    padding: 22px;
-  }
-  .hero-status b {
-    display: block;
-    font-family: var(--serif);
-    font-size: 30px;
-    line-height: 1.05;
-    margin: 12px 0 10px;
+    line-height: 1.5;
+    color: rgba(245, 239, 228, .9);
   }
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 30px;
+    margin-top: 34px;
   }
   .btn {
     display: inline-flex;
@@ -182,32 +175,78 @@
   .btn.primary { background: var(--turmeric); color: var(--indigo); }
   .btn.secondary { color: var(--paper); border-color: rgba(245, 239, 228, .55); }
   .btn:hover { transform: translateY(-1px); }
-
-  .below-hero {
-    background: var(--indigo);
-    color: var(--paper);
-    border-top: 1px solid rgba(245, 239, 228, .15);
-  }
-  .signal-strip {
+  .hero-ledger {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: rgba(245, 239, 228, .16);
+    margin-top: 38px;
+    border-top: 1px solid rgba(245, 239, 228, .34);
+    border-bottom: 1px solid rgba(245, 239, 228, .22);
   }
-  .signal {
-    min-height: 116px;
-    padding: 22px;
-    background: var(--indigo);
+  .ledger-item {
+    min-height: 88px;
+    padding: 14px 20px 12px 0;
+    border-right: 1px solid rgba(245, 239, 228, .18);
   }
-  .signal strong {
+  .ledger-item:last-child { border-right: 0; }
+  .ledger-item span {
     display: block;
+    color: rgba(245, 239, 228, .7);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .ledger-item strong {
+    display: block;
+    margin-top: 9px;
     font-family: var(--serif);
-    font-size: 30px;
+    font-size: clamp(23px, 2.35vw, 34px);
     line-height: 1;
     color: var(--turmeric);
-    margin-bottom: 8px;
   }
-  .signal span { color: rgba(245, 239, 228, .75); font-size: 14px; }
+  .ledger-item small {
+    display: block;
+    margin-top: 9px;
+    color: rgba(245, 239, 228, .78);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .below-hero {
+    background: var(--paper);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .formula-strip {
+    display: grid;
+    grid-template-columns: .7fr 1.3fr;
+    gap: 52px;
+    padding: 44px 0;
+    align-items: start;
+  }
+  .formula-strip h2 {
+    font-size: clamp(28px, 3.4vw, 48px);
+    max-width: 420px;
+  }
+  .formula-rail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-left: 1px solid var(--line);
+  }
+  .formula-step {
+    padding: 4px 24px 8px;
+    border-right: 1px solid var(--line);
+  }
+  .formula-step b {
+    display: block;
+    color: var(--laterite);
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  .formula-step p {
+    margin-top: 10px;
+    color: rgba(27, 36, 26, .74);
+    font-size: 15px;
+  }
 
   section { padding: 110px 0; }
   .earth-zoom {
@@ -594,14 +633,13 @@
 
   @media (max-width: 980px) {
     .nav-links { display: none; }
-    .hero-grid,
     .intro-grid,
     .direction-grid,
     .work-grid {
       grid-template-columns: 1fr;
     }
-    .hero-status { max-width: 520px; }
-    .signal-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero-ledger { grid-template-columns: repeat(2, 1fr); }
+    .formula-strip { grid-template-columns: 1fr; gap: 28px; }
     .zoom-layout { grid-template-columns: 1fr; }
     .zoom-copy {
       position: relative;
@@ -625,11 +663,29 @@
     .wrap { width: min(100% - 28px, 1180px); }
     .site-nav { padding: 14px; }
     .brand-mark { font-size: 20px; }
-    .hero { min-height: 94vh; }
-    .hero-inner { padding-top: 110px; }
+    .hero { min-height: auto; }
+    .hero-inner { padding: 118px 0 24px; }
     .hero-actions, .mail-row { display: grid; }
+    .hero-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .btn { width: 100%; }
-    .signal-strip, .timeline { grid-template-columns: 1fr; }
+    .hero-actions .btn { width: auto; }
+    .hero-ledger { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .formula-rail, .timeline { grid-template-columns: 1fr; }
+    .formula-step { border-right: 0; }
+    .ledger-item {
+      min-height: auto;
+      padding-right: 12px;
+      border-top: 1px solid rgba(245, 239, 228, .16);
+    }
+    .ledger-item:nth-child(2n) { border-right: 0; }
+    .ledger-item:nth-child(-n + 2) { border-top: 0; }
+    .ledger-item strong { font-size: 23px; }
+    .ledger-item small { font-size: 12px; }
+    .formula-step {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+    .formula-rail { border-left: 0; }
     section { padding: 78px 0; }
     .truth-item, .route-row { grid-template-columns: 1fr; gap: 8px; }
     .map-panel { min-height: 420px; }
@@ -655,7 +711,7 @@
       <a href="#truth">Project</a>
       <a href="#zoom">Zoom</a>
       <a href="#direction">Direction</a>
-      <a href="#days">Seven days</a>
+      <a href="#days">Pilot arc</a>
       <a href="#fieldwork">Fieldwork</a>
       <a href="#journal">Journal</a>
       <a href="#request">Pilot</a>
@@ -665,32 +721,61 @@
   <main id="top">
     <header class="hero">
       <div class="wrap hero-inner">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="eyebrow">Sarangada, Kandhamal</div>
-            <h1>Maati Katha</h1>
-            <p>The Weight of Belonging. Seven days in Sarangada, shaped by red soil, eastern fields, a market spine, and the hills to the west.</p>
-            <div class="hero-actions">
-              <a class="btn primary" href="#days">See the seven days</a>
-              <a class="btn secondary" href="#direction">Read the place</a>
-            </div>
+        <div class="hero-copy">
+          <p class="eyebrow hero-kicker">Pilot in design / Sarangada, Kandhamal</p>
+          <h1>Maati Katha</h1>
+          <p>The Weight of Belonging. A westward life-exchange pilot is being built from red soil, eastern fields, the market spine, and the hills beyond Sarangada. The seven-day arc is a design draft, not a public offer yet.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#direction">Read the place</a>
+            <a class="btn secondary" href="#days">View the draft arc</a>
           </div>
+        </div>
 
-          <aside class="hero-status" aria-label="Project status">
-            <div class="eyebrow">Current status</div>
-            <b>Invitation-only pilot.</b>
-            <p class="muted">The public stay opens after the host model, routes, and village permissions are settled.</p>
-          </aside>
+        <div class="hero-ledger" aria-label="Current project status">
+          <div class="ledger-item">
+            <span>Status</span>
+            <strong>Pilot</strong>
+            <small>Invitation-only while host, safety, and consent details are settled.</small>
+          </div>
+          <div class="ledger-item">
+            <span>Ground</span>
+            <strong>20.227 N</strong>
+            <small>Approximate Sarangada coordinate in Kandhamal.</small>
+          </div>
+          <div class="ledger-item">
+            <span>Movement</span>
+            <strong>East to west</strong>
+            <small>Fields, market core, then hill and forest edge.</small>
+          </div>
+          <div class="ledger-item">
+            <span>Rule</span>
+            <strong>Consent first</strong>
+            <small>No route, photograph, or stay is public until it is verified.</small>
+          </div>
         </div>
       </div>
     </header>
 
     <div class="below-hero">
-      <div class="wrap signal-strip" aria-label="Project signals">
-        <div class="signal"><strong>07</strong><span>days as a designed arc, not a package tour</span></div>
-        <div class="signal"><strong>01</strong><span>village, Sarangada, read through land and daily life</span></div>
-        <div class="signal"><strong>20.227</strong><span>north, approximately, in Kandhamal district</span></div>
-        <div class="signal"><strong>West</strong><span>the direction the day moves toward</span></div>
+      <div class="wrap formula-strip" aria-label="Homepage formula">
+        <div>
+          <p class="hand">A better formula.</p>
+          <h2>Place, permission, then pilot.</h2>
+        </div>
+        <div class="formula-rail">
+          <div class="formula-step">
+            <b>01 / Place</b>
+            <p>Start with Sarangada as terrain: red laterite, fields, market road, southern entry, and westward dusk.</p>
+          </div>
+          <div class="formula-step">
+            <b>02 / Permission</b>
+            <p>Keep private homes, sacred spaces, children, routes, and stories out of the offer until residents decide the limits.</p>
+          </div>
+          <div class="formula-step">
+            <b>03 / Pilot</b>
+            <p>Only then test the seven-day arc quietly, with trusted guests and a host model that is actually ready.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -732,7 +817,7 @@
           </article>
           <article class="zoom-step">
             <div class="zoom-frame"><img src="assets/earth-zoom-05.jpg" alt="Closest Google Earth frame for the village research point" /></div>
-            <div class="zoom-label"><b>05</b><span>Threshold: eastern fields to western hills, the seven-day arc begins.</span></div>
+            <div class="zoom-label"><b>05</b><span>Threshold: eastern fields to western hills, where the draft arc takes shape.</span></div>
           </article>
         </div>
       </div>
@@ -742,11 +827,11 @@
       <div class="wrap intro-grid">
         <div>
           <p class="hand">No fake experiences. Just life as it is.</p>
-          <p class="lead">This is not a scenic rural escape. It is a slow stay built from the ordinary geography of one village.</p>
+          <p class="lead">This is not a scenic rural escape. It is a slow-stay pilot being built from the ordinary geography of one village.</p>
         </div>
         <div class="intro-copy">
           <p>Maati Katha starts with a simple refusal: do not dress village life up for visitors, and do not hide the present day to make it look older. The road, the phone, the tin roof, the chulha, the field, and the power line all belong in the same frame.</p>
-          <p>The stay is designed like a piece of field writing. You arrive, walk, eat, listen, notice what is public, and learn what is not yours to enter.</p>
+          <p>The pilot is being designed like a piece of field writing: arrival, walking, eating, listening, noticing what is public, and learning what is not yours to enter.</p>
           <div class="truth-list">
             <div class="truth-item"><b>Land</b><span>Red lateritic soil, deep clay, monsoon water, paddy, and the neighbouring turmeric belt.</span></div>
             <div class="truth-item"><b>Life</b><span>A mixed village with everyday coexistence, not a single culture performed on cue.</span></div>
@@ -781,19 +866,19 @@
         <div class="section-head">
           <div>
             <p class="hand">The arc, not the final itinerary.</p>
-            <h2>Seven days arranged west.</h2>
+            <h2>A seven-day draft arranged west.</h2>
           </div>
-          <p class="muted">The week follows the village's own movement: south entry, eastern fields, market core, water, turmeric nearby, and the hills to the west.</p>
+          <p class="muted">The proposed week follows the village's own movement: south entry, eastern fields, market core, water, turmeric nearby, and the hills to the west. Each step still needs field confirmation before it becomes a public stay.</p>
         </div>
 
         <div class="timeline" aria-label="Seven day draft structure">
-          <article class="day"><div><b>01</b><h3>Arrival</h3><p>Enter from the Baliguda side. Tea, rest, and the first walk along the market spine.</p></div><span class="eyebrow">South entry</span></article>
-          <article class="day"><div><b>02</b><h3>Fields</h3><p>Eastern and northern agricultural belt. Paddy, bunds, soil, and the morning rhythm.</p></div><span class="eyebrow">Verify route</span></article>
-          <article class="day"><div><b>03</b><h3>Market</h3><p>Lower market, upper market, public life, language, errands, and everyday exchange.</p></div><span class="eyebrow">Observe first</span></article>
-          <article class="day pending"><div><b>04</b><h3>Haladi</h3><p>Neighbouring turmeric fields only with grower consent, exact route, season, and payment settled.</p></div><span class="eyebrow">Not yet public</span></article>
+          <article class="day"><div><b>01</b><h3>Arrival</h3><p>The working entry is from the Baliguda side: rest, tea, and a first consent-led reading of the market spine.</p></div><span class="eyebrow">Draft</span></article>
+          <article class="day"><div><b>02</b><h3>Fields</h3><p>Eastern and northern agricultural belts are the morning study: paddy, bunds, soil, and route notes to verify.</p></div><span class="eyebrow">Verify route</span></article>
+          <article class="day"><div><b>03</b><h3>Market</h3><p>The market core is being treated as observation first: public life, language, errands, and everyday exchange.</p></div><span class="eyebrow">Observe first</span></article>
+          <article class="day pending"><div><b>04</b><h3>Haladi</h3><p>Neighbouring turmeric fields enter the arc only after grower consent, exact route, season, and payment are settled.</p></div><span class="eyebrow">Not yet public</span></article>
           <article class="day pending"><div><b>05</b><h3>Water</h3><p>The pond, well, and ritual layer require names, history, and permission before writing.</p></div><span class="eyebrow">Layer 4</span></article>
-          <article class="day pending"><div><b>06</b><h3>West</h3><p>Forest path and hill side. A local guide decides what is safe, private, or not for visitors.</p></div><span class="eyebrow">Fieldwork</span></article>
-          <article class="day"><div><b>07</b><h3>Leaving</h3><p>Departure with fewer souvenirs and a more accurate sense of what belonging weighs.</p></div><span class="eyebrow">Close gently</span></article>
+          <article class="day pending"><div><b>06</b><h3>West</h3><p>Forest path and hillside remain unmapped for guests. A local guide decides what is safe, private, or not for visitors.</p></div><span class="eyebrow">Fieldwork</span></article>
+          <article class="day"><div><b>07</b><h3>Leaving</h3><p>The closing day is still a design note: leave with fewer souvenirs and a more accurate sense of what belonging weighs.</p></div><span class="eyebrow">Draft</span></article>
         </div>
       </div>
     </section>
