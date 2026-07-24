@@ -1,4 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maati Katha — The Weight of Belonging</title>
+<meta name="description" content="A seven-day life-exchange in Sarangada, Kandhamal, Odisha. No fake experiences. Just life as it is.">
+<meta name="theme-color" content="#1F2A3A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Maati Katha — The Weight of Belonging">
+<meta property="og:description" content="A seven-day life-exchange in Sarangada, Kandhamal, Odisha. No fake experiences. Just life as it is.">
+<meta property="og:url" content="https://chandanpanda615-lab.github.io/Maati-katha/">
+<meta property="og:image" content="https://raw.githubusercontent.com/chandanpanda615-lab/Maati-katha/main/maati-katha-research/assets/hills-mist.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maati Katha — The Weight of Belonging">
+<meta name="twitter:description" content="A seven-day life-exchange in Sarangada, Kandhamal, Odisha. No fake experiences. Just life as it is.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chandanpanda615-lab/Maati-katha/main/maati-katha-research/assets/hills-mist.jpg">
+</head>
+<body>
 <style>
 @font-face {
   font-family: 'Cormorant Garamond';
@@ -419,13 +437,173 @@ p + p { margin-top: 1.4em; }
 }
 
 :focus-visible { outline: 2px solid var(--turmeric); outline-offset: 3px; }
+
+/* --- Section anchoring under fixed nav --- */
+section[id], header[id] { scroll-margin-top: 68px; }
+
+/* --- Sticky section nav --- */
+.topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem var(--content-pad);
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--panel-border);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity .4s ease, transform .4s ease;
+  pointer-events: none;
+}
+.topnav.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.topnav-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: .02em;
+  color: var(--text-paper);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.1rem;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.topnav-links::-webkit-scrollbar { display: none; }
+.topnav-links a {
+  font-size: 0.74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.topnav-links a:hover { color: var(--accent); border-color: var(--accent); }
+.topnav-cta {
+  color: var(--accent) !important;
+  border-color: var(--panel-border) !important;
+}
+@media (max-width: 560px) {
+  .topnav-brand { display: none; }
+  .topnav-links { margin-left: 0; }
+}
+
+/* --- Practical guide / how to reach --- */
+.guide { position: relative; z-index: 1; }
+.guide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(10,15,25,.55), rgba(10,15,25,.15) 70%);
+  z-index: -1;
+}
+.guide-inner {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) var(--content-pad);
+}
+.guide-map-wrap {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  padding: 1.1rem 1.1rem 0.6rem;
+  margin: 1.6rem 0 2.4rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.guide-map { width: 100%; height: auto; display: block; }
+.guide-map text { font-family: var(--font-body); fill: var(--text-paper); }
+.guide-map .m-label { font-size: 10px; letter-spacing: .04em; }
+.guide-map .m-city { font-size: 11px; font-weight: 600; }
+.guide-map .m-note { font-size: 8.5px; fill: var(--text-muted); letter-spacing: .06em; text-transform: uppercase; }
+.guide-map .m-sea { font-size: 10px; fill: var(--text-muted); letter-spacing: .28em; text-transform: uppercase; }
+.guide-map-cap {
+  font-size: 0.72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  padding-top: .5rem;
+}
+.guide-grid { display: grid; gap: 1.8rem; }
+.guide-item h3 {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: .35rem;
+}
+.guide-item p { max-width: var(--measure); }
+
+/* --- Call to action --- */
+.cta { position: relative; z-index: 1; text-align: center; }
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(10,15,25,.5), rgba(10,15,25,.1) 70%);
+  z-index: -1;
+}
+.cta-inner { padding: clamp(3.5rem, 8vw, 6rem) var(--content-pad); }
+.cta-line {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: 1.25;
+  text-wrap: balance;
+  margin-bottom: 1.4rem;
+}
+.cta-btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ash);
+  background: var(--laterite);
+  text-decoration: none;
+  padding: .95rem 2.2rem;
+  border-radius: 2px;
+  transition: background .2s ease, transform .2s ease;
+}
+.cta-btn:hover { background: var(--turmeric); transform: translateY(-2px); }
+.cta-sub {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-top: 1.2rem;
+}
 </style>
 
 <canvas id="scene" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress-bar" aria-hidden="true"></div>
 
-<main>
+<nav class="topnav" aria-label="Section navigation">
+  <a class="topnav-brand" href="#top">Maati Katha</a>
+  <div class="topnav-links">
+    <a href="#maati">maati</a>
+    <a href="#west">the day</a>
+    <a href="#village">the village</a>
+    <a href="#material">coexistence</a>
+    <a href="#morning">first morning</a>
+    <a href="#land">the land</a>
+    <a href="#visit">how to reach</a>
+    <a class="topnav-cta" href="#interest">express interest</a>
+  </div>
+</nav>
+
+<main id="top">
   <!-- HERO -->
   <header class="hero">
     <div class="hero-inner">
@@ -444,7 +622,7 @@ p + p { margin-top: 1.4em; }
   </header>
 
   <!-- THE WORD MAATI -->
-  <section class="panel-wrap">
+  <section class="panel-wrap" id="maati">
     <article class="panel">
       <span class="eyebrow reveal">on the word maati</span>
       <p class="reveal" style="--d:.08s">In Hindi, in Bengali, in Odia, <em>maati</em> means soil. But that translation is not the whole of it.</p>
@@ -460,7 +638,7 @@ p + p { margin-top: 1.4em; }
   </section>
 
   <!-- THE DAY FLOWS WEST -->
-  <section class="panel-wrap">
+  <section class="panel-wrap" id="west">
     <article class="panel">
       <span class="eyebrow reveal">the day flows west</span>
       <p class="reveal" style="--d:.08s">A village has a direction. Sarangada's direction is west.</p>
@@ -470,7 +648,7 @@ p + p { margin-top: 1.4em; }
   </section>
 
   <!-- A MIXED VILLAGE -->
-  <section class="panel-wrap">
+  <section class="panel-wrap" id="village">
     <article class="panel">
       <span class="eyebrow reveal">a mixed village</span>
       <p class="reveal" style="--d:.08s">I should be honest with you about what kind of village this is. Sarangada is not a tribal village. It is also not a non-tribal village. It is a mixed village, the way most villages in Kandhamal actually are.</p>
@@ -485,7 +663,7 @@ p + p { margin-top: 1.4em; }
   </section>
 
   <!-- COEXISTENCE, MATERIAL -->
-  <section class="panel-wrap">
+  <section class="panel-wrap" id="material">
     <article class="panel">
       <span class="eyebrow reveal">on coexistence, material</span>
       <p class="reveal" style="--d:.08s">A doorway here is mud-plastered earth holding up a corrugated metal roof. A field is shaped by a wooden tool that has not changed in three hundred years and watered by a borewell that runs on electricity that arrived within living memory. A meal is cooked on a chulha fired with wood from the forest and served on a leaf-plate that grew there too, and afterwards someone takes a selfie with it.</p>
@@ -501,7 +679,7 @@ p + p { margin-top: 1.4em; }
   </section>
 
   <!-- THE FIRST MORNING -->
-  <section class="panel-wrap">
+  <section class="panel-wrap" id="morning">
     <article class="panel">
       <span class="eyebrow reveal">the first morning</span>
       <p class="reveal" style="--d:.08s">You will wake before you are ready. Not because we will wake you, but because village mornings are not quiet the way city mornings are not quiet — there will be roosters, there will be voices, there will be the specific sound of a chulha being lit in a courtyard somewhere on the same road as you.</p>
@@ -512,7 +690,7 @@ p + p { margin-top: 1.4em; }
   </section>
 
   <!-- THE LAND -->
-  <section class="land">
+  <section class="land" id="land">
     <span class="land-eyebrow reveal">what the land says</span>
     <p class="verse-line reveal" style="--d:.06s; --indent:0%">Bright green paddy fields terraced into the hillside, their earthen bunds holding water.</p>
     <span class="verse-sep reveal" style="--d:.14s; --indent:10%"></span>
@@ -534,6 +712,82 @@ p + p { margin-top: 1.4em; }
       <p class="manifesto-loc">Sarangada · Nuagaon Block · Kandhamal · Odisha</p>
       <p class="manifesto-coords display">20.227°N, 84.124°E</p>
       <p class="manifesto-close">the story the soil tells</p>
+    </div>
+  </section>
+
+  <!-- HOW TO REACH -->
+  <section class="guide" id="visit">
+    <div class="guide-inner">
+      <span class="eyebrow reveal">how to reach</span>
+      <div class="guide-map-wrap reveal" style="--d:.08s">
+        <svg class="guide-map" viewBox="0 0 420 300" role="img" aria-label="Schematic map of the route from Bhubaneswar westward into Kandhamal to Sarangada. Sarangada lies inland in the Eastern Ghats; the Bay of Bengal is to the east.">
+          <!-- sea -->
+          <path d="M420,-5 L420,305 L232,305 C 250,255 305,195 348,125 C 372,86 392,42 412,-5 Z" fill="rgba(31,42,58,0.20)"/>
+          <path d="M232,305 C 250,255 305,195 348,125 C 372,86 392,42 412,-5" fill="none" stroke="rgba(31,42,58,0.45)" stroke-width="1.2"/>
+          <text class="m-sea" x="392" y="150" transform="rotate(90 392 150)" text-anchor="middle">Bay of Bengal</text>
+          <!-- hill band (Eastern Ghats) -->
+          <g fill="rgba(45,59,38,0.30)">
+            <path d="M-5,175 L30,120 L65,175 Z"/>
+            <path d="M35,175 L78,105 L120,175 Z"/>
+            <path d="M95,175 L135,120 L175,175 Z"/>
+            <path d="M0,180 L200,180 L200,210 L0,210 Z"/>
+          </g>
+          <text class="m-note" x="14" y="200">Eastern Ghats · forest</text>
+          <!-- route: Bhubaneswar -> Sarangada -->
+          <defs>
+            <marker id="arw" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto">
+              <path d="M0,0 L6,3.2 L0,6.4 Z" fill="#8B3A1F"/>
+            </marker>
+          </defs>
+          <path d="M328,80 C 250,140 150,120 78,92" fill="none" stroke="#8B3A1F" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arw)"/>
+          <text class="m-note" x="205" y="132" text-anchor="middle">≈ 250 km · road only</text>
+          <!-- Bhubaneswar -->
+          <circle cx="330" cy="80" r="3.4" fill="#C8842B"/>
+          <text class="m-city" x="325" y="70" text-anchor="end">Bhubaneswar</text>
+          <text class="m-note" x="325" y="60" text-anchor="end">fly in · nearest airport</text>
+          <!-- Phulbani -->
+          <circle cx="86" cy="52" r="2.6" fill="currentColor"/>
+          <text class="m-label" x="94" y="49">Phulbani</text>
+          <text class="m-note" x="94" y="59">district town</text>
+          <!-- Sarangada -->
+          <circle cx="70" cy="92" r="6" fill="none" stroke="#C8842B" stroke-width="1.4"/>
+          <circle cx="70" cy="92" r="2.6" fill="#C8842B"/>
+          <text class="m-city" x="82" y="90">Sarangada</text>
+          <text class="m-note" x="82" y="100">your destination · 762106</text>
+          <!-- Berhampur -->
+          <circle cx="169" cy="236" r="2.8" fill="currentColor"/>
+          <text class="m-label" x="177" y="233">Berhampur</text>
+          <text class="m-note" x="177" y="243">nearest railhead · ~150 km</text>
+        </svg>
+        <p class="guide-map-cap">Bhubaneswar to Sarangada · schematic, not to scale</p>
+      </div>
+      <div class="guide-grid">
+        <div class="guide-item reveal" style="--d:.12s">
+          <h3>getting here</h3>
+          <p>There is no railway into Kandhamal. Most people fly into Bhubaneswar and drive — roughly 250 kilometres, most of a day, the last stretch climbing west into the Eastern Ghats. The nearest railhead is Berhampur, about 150 kilometres south, with onward options at Bhubaneswar, Sambalpur and Muniguda. However you come, the final approach is by road, from the south, past Baliguda. The drive is not incidental. It is where the plain gives way to forest, and it is the first thing the land tells you.</p>
+        </div>
+        <div class="guide-item reveal" style="--d:.16s">
+          <h3>the village</h3>
+          <p>Sarangada is a mixed village strung along about a kilometre of market road — Kondh, Brahmin, Kshatriya and Christian families sharing the same red soil. Odia in the market and the school, Kui in the older Kondh homes, Hindi among the young. Pincode 762106. 20.227°N, 84.124°E.</p>
+        </div>
+        <div class="guide-item reveal" style="--d:.2s">
+          <h3>what to expect</h3>
+          <p>Plain comforts, honestly. You sleep in the village, not beside it. The tea is too sweet. There is no wifi after seven, and nobody minds. Days begin before you are ready and end facing the trees.</p>
+        </div>
+        <div class="guide-item reveal" style="--d:.24s">
+          <h3>who it's for</h3>
+          <p>Anyone who wants a place as it is rather than as it is performed. If you came for a single culture staged for a camera, you will leave disappointed. If you came to be absorbed for seven days, this is that.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="interest">
+    <div class="cta-inner reveal">
+      <p class="cta-line">Seven days. One village. Come as you are.</p>
+      <a class="cta-btn" href="mailto:chandanpanda615@gmail.com?subject=Maati%20Katha%20%E2%80%94%20expression%20of%20interest">Express interest</a>
+      <p class="cta-sub">cohorts are forming. write to us and we'll tell you when the road is open.</p>
     </div>
   </section>
 </main>
@@ -746,10 +1000,15 @@ p + p { margin-top: 1.4em; }
 
   var bar = document.querySelector('.progress-bar');
   var hint = document.querySelector('.scroll-hint');
+  var nav = document.querySelector('.topnav');
   window.addEventListener('scroll', function () {
     var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
     bar.style.width = (pct * 100) + '%';
     if (hint) hint.style.opacity = window.scrollY > 90 ? '0' : '1';
+    if (nav) nav.classList.toggle('show', window.scrollY > window.innerHeight * 0.7);
   }, { passive: true });
 })();
 </script>
+
+</body>
+</html>
