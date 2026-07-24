@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maati Katha — The Weight of Belonging</title>
 <meta name="description" content="A seven-day life-exchange in Sarangada, Kandhamal, Odisha. No fake experiences. Just life as it is.">
 <meta name="theme-color" content="#1F2A3A">
@@ -424,6 +424,12 @@ p + p { margin-top: 1.4em; }
 }
 .reveal.visible { opacity: 1; transform: none; }
 
+@media (max-width: 700px) {
+  .pullquote.big { font-size: var(--text-xl); }
+  .verse-line, .verse-sep { margin-left: 0 !important; }
+  .land { max-width: 100%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .scroll-hint svg { animation: none; }
@@ -488,31 +494,9 @@ section[id], header[id] { scroll-margin-top: 68px; }
   color: var(--accent) !important;
   border-color: var(--panel-border) !important;
 }
-
-@media (max-width: 768px) {
-  :root {
-    --content-pad: 1.2rem;
-    --text-hero: clamp(2.5rem, 11vw, 4.5rem);
-    --text-3xl: clamp(1.8rem, 7vw, 2.6rem);
-    --text-2xl: clamp(1.4rem, 5vw, 2rem);
-  }
-  html, body, main, section {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-  .pullquote.big { font-size: var(--text-xl); }
-  .verse-line, .verse-sep { margin-left: 0 !important; }
-  .land { max-width: 100%; }
-  .wordmark { font-size: clamp(2.6rem, 12vw, 4.2rem); }
-  .topnav { padding: 0.5rem 0.8rem; gap: 0.5rem; }
-  .topnav-links { gap: 0.75rem; }
-  .topnav-links a { font-size: 0.68rem; letter-spacing: 0.08em; }
-}
-
 @media (max-width: 560px) {
   .topnav-brand { display: none; }
-  .topnav-links { margin-left: 0; width: 100%; justify-content: space-between; }
-  .guide-map-wrap { padding: 0.6rem 0.4rem; }
+  .topnav-links { margin-left: 0; }
 }
 
 /* --- Practical guide / how to reach --- */
@@ -718,10 +702,6 @@ section[id], header[id] { scroll-margin-top: 68px; }
     <span class="verse-sep reveal" style="--d:.5s; --indent:8%"></span>
     <p class="verse-line reveal" style="--d:.54s; --indent:0%">Different eras of technology and material culture coexist.</p>
     <p class="verse-line reveal" style="--d:.62s; --indent:11%">The rust, the bare earth, and the worn building are presented plainly.</p>
-    <span class="verse-sep reveal" style="--d:.68s; --indent:4%"></span>
-    <p class="verse-line reveal" style="--d:.72s; --indent:4%">A week of unscripted life beneath the mist of the Eastern Ghats.</p>
-    <p class="verse-line reveal" style="--d:.78s; --indent:12%">The warmth of shared meals on leaf-plates and bare red soil.</p>
-    <p class="verse-line reveal" style="--d:.84s; --indent:2%">Seven days that leave you part of Sarangada's quiet story.</p>
   </section>
 
   <!-- MANIFESTO -->
