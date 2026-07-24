@@ -593,11 +593,79 @@ section[id], header[id] { scroll-margin-top: 68px; }
   transition: background .2s ease, transform .2s ease;
 }
 .cta-btn:hover { background: var(--turmeric); transform: translateY(-2px); }
-.cta-sub {
-  font-family: var(--font-accent);
-  font-size: 1.25rem;
+/* --- Raw Photo Gallery --- */
+.gallery-wrap {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3.5rem, 8vw, 6rem) var(--content-pad);
+}
+.gallery-header {
+  max-width: 68ch;
+  margin: 0 auto 2.8rem;
+  text-align: center;
+}
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--text-paper);
+  margin: 0.4rem 0 0.8rem;
+}
+.gallery-sub {
+  font-size: var(--text-base);
   color: var(--text-muted);
-  margin-top: 1.2rem;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.gallery-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.gallery-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--turmeric);
+}
+.gallery-img-box {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: rgba(0,0,0,0.3);
+}
+.gallery-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-card:hover .gallery-img-box img {
+  transform: scale(1.05);
+}
+.gallery-card figcaption {
+  padding: 1.1rem 1.2rem;
+}
+.gallery-loc {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.gallery-card figcaption p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-paper);
+  margin: 0;
 }
 </style>
 
@@ -613,6 +681,7 @@ section[id], header[id] { scroll-margin-top: 68px; }
     <a href="#village">the village</a>
     <a href="#material">coexistence</a>
     <a href="#morning">first morning</a>
+    <a href="#gallery">raw photos</a>
     <a href="#land">the land</a>
     <a href="#visit">how to reach</a>
     <a class="topnav-cta" href="#interest">express interest</a>
@@ -703,6 +772,89 @@ section[id], header[id] { scroll-margin-top: 68px; }
       <p class="reveal" style="--d:.24s">Someone will hand you tea. The tea will be too sweet by your standards, and you will drink it anyway, because the alternative is to make a small social statement on the first morning, and you will not want to.</p>
       <blockquote class="pullquote big reveal" style="--d:.3s">A village waking up around you that is not yours and is also, for one week, exactly yours.</blockquote>
     </article>
+  </section>
+
+  <!-- RAW PHOTOS GALLERY -->
+  <section class="gallery-wrap" id="gallery">
+    <div class="gallery-header inner reveal">
+      <span class="eyebrow">unfiltered reality</span>
+      <h2 class="gallery-title">Raw Stories from the Soil</h2>
+      <p class="gallery-sub">No staged poses. No heavy filters. Just authentic, unscripted moments of daily life in Sarangada.</p>
+    </div>
+    <div class="gallery-grid inner">
+      <figure class="gallery-card reveal" style="--d:.06s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.15 (1).jpeg" alt="Fishing with traditional lift net on red earth riverbank" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Riverbank · 20.227°N</span>
+          <p>Traditional cantilevered lift net fishing on the red lateritic banks of the river.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.12s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.16 (1).jpeg" alt="Mud-plastered home and motorcycle" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Village Spine · Sarangada</span>
+          <p>Mud-plastered walls, corrugated metal roof, and a commuter motorcycle outside a home.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.18s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.16 (2).jpeg" alt="Terraced paddy fields under mist" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Paddy Terraces · Eastern Ghats</span>
+          <p>Monsoon paddy fields terraced into the hillside under low-hanging mist.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.24s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.17.jpeg" alt="Chulha cooking and fire-roasted food" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Courtyard Hearth</span>
+          <p>Vegetables fire-roasted on chulha coals, prepared for a simple communal meal.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.30s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.18.jpeg" alt="Sunrise over misty hills" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Western Hills · Dawn</span>
+          <p>The first low-angled sunlight breaking over mist-shrouded peaks at 5:30 AM.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.36s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.19 (1).jpeg" alt="Communal meal on red earth" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Communal Gathering</span>
+          <p>Eating together directly on the bare reddish-brown ground, sharing what the land grew.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.42s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.21.jpeg" alt="Red dirt road winding into forest" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">Unpaved Approach</span>
+          <p>The unpaved red road where cultivation fades into wilderness as evening approaches.</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card reveal" style="--d:.48s">
+        <div class="gallery-img-box">
+          <img src="Village_Image/Photoes_Gallery/WhatsApp Image 2026-04-18 at 16.17.15.jpeg" alt="River rapids and group of friends" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="gallery-loc">River Rapids</span>
+          <p>Water carved smooth over ancient boulders, a quiet gathering place for local friends.</p>
+        </figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- THE LAND -->
