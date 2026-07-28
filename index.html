@@ -155,30 +155,50 @@ p + p { margin-top: 1.4em; }
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: clamp(2rem, 7vw, 6rem);
-  padding-bottom: clamp(4rem, 12vh, 9rem);
+  align-items: stretch;
+  overflow: hidden;
   color: var(--ash);
+  /* No background: the animated landscape shows through. Every photograph in
+     this repo is a collage or a Google Earth screen recording, so there is no
+     single frame worth putting here yet. */
 }
-.hero::before {
+/* When one real photograph exists, drop it at assets/hero.jpg and change the
+   markup to <header class="hero has-photo">. Nothing else needs to change. */
+.hero.has-photo {
+  background:
+    linear-gradient(100deg, rgba(27,36,26,.94) 0%, rgba(27,36,26,.72) 42%, rgba(139,58,31,.24) 100%),
+    url("assets/hero.jpg") center/cover no-repeat;
+}
+.hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(8,10,18,0.55) 0%, rgba(8,10,18,0.15) 40%, rgba(8,10,18,0) 70%);
+  background:
+    linear-gradient(to top, rgba(8,10,18,.74), rgba(8,10,18,.18) 55%, rgba(8,10,18,0) 82%),
+    radial-gradient(circle at 78% 26%, rgba(200,132,43,.16), transparent 36%);
 }
 
-.hero-inner { max-width: 20ch; }
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(6.5rem, 15vh, 9.5rem) var(--content-pad) clamp(1.5rem, 4vh, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
-.hero-eyebrow {
-  font-family: var(--font-accent);
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  letter-spacing: 0.02em;
-  margin-bottom: 0.6rem;
+.hero-kicker {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--turmeric);
-  text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+  margin-bottom: 1.1rem;
 }
 
 .wordmark {
@@ -190,48 +210,78 @@ p + p { margin-top: 1.4em; }
   text-shadow: 0 4px 40px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);
 }
 
-.hero-sub {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: var(--text-2xl);
-  margin-top: 0.4rem;
-  color: #f3ede0;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+.hero-lede {
+  margin-top: 1.4rem;
+  max-width: 62ch;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.55;
+  color: rgba(245, 239, 228, 0.92);
+  text-shadow: 0 2px 18px rgba(0,0,0,0.5);
 }
 
-.hero-meta {
-  margin-top: 2rem;
-  max-width: none;
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.5rem;
-  align-items: baseline;
-  font-size: var(--text-sm);
-  letter-spacing: 0.05em;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 225, 212, 0.75);
-  text-shadow: 0 1px 10px rgba(0,0,0,0.7);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
-.hero-meta .coords { font-family: var(--font-display); text-transform: none; letter-spacing: 0.12em; font-size: var(--text-base); }
+.btn.primary { background: var(--turmeric); color: var(--indigo); }
+.btn.secondary { color: var(--ash); border-color: rgba(245, 239, 228, 0.55); }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary:hover { background: #d9964a; }
 
-.hero-tag {
-  margin-top: 1.4rem;
-  font-style: italic;
-  font-size: var(--text-base);
-  color: rgba(232, 225, 212, 0.85);
-  text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+/* Status ledger — the honest state of the project, above the fold. */
+.hero-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 2.6rem;
+  border-top: 1px solid rgba(245, 239, 228, 0.34);
+  border-bottom: 1px solid rgba(245, 239, 228, 0.2);
 }
-
-.scroll-hint {
-  position: absolute;
-  bottom: 1.6rem; left: 50%;
-  transform: translateX(-50%);
-  color: rgba(232,225,212,0.7);
-  transition: opacity 0.5s ease;
+.ledger-item {
+  padding: 1rem 1.2rem 0.95rem 0;
+  border-right: 1px solid rgba(245, 239, 228, 0.18);
 }
-.scroll-hint svg { animation: bob 2.4s ease-in-out infinite; }
-@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+.ledger-item:last-child { border-right: 0; }
+.ledger-item span {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 228, 0.7);
+}
+.ledger-item strong {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  line-height: 1;
+  color: var(--turmeric);
+}
+.ledger-item small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(245, 239, 228, 0.78);
+}
 
 /* ==================== PANELS ==================== */
 .panel-wrap {
@@ -426,68 +476,83 @@ p + p { margin-top: 1.4em; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .scroll-hint svg { animation: none; }
   html { scroll-behavior: auto; }
 }
 
 :focus-visible { outline: 2px solid var(--turmeric); outline-offset: 3px; }
 
 /* --- Section anchoring under fixed nav --- */
-section[id], header[id] { scroll-margin-top: 68px; }
+section[id], header[id] { scroll-margin-top: 84px; }
 
-/* --- Sticky section nav --- */
-.topnav {
+/* --- Persistent site nav --- */
+.site-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 9000;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.55rem var(--content-pad);
-  background: var(--panel-bg);
-  border-bottom: 1px solid var(--panel-border);
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.85rem clamp(1.2rem, 4vw, 2.6rem);
+  color: var(--ash);
+  background: linear-gradient(to bottom, rgba(31,42,58,.78), rgba(31,42,58,0));
+  transition: background .3s ease, border-color .3s ease;
+  border-bottom: 1px solid transparent;
+}
+/* Solid once the hero photo is gone, so links stay legible over pale panels. */
+.site-nav.scrolled {
+  background: rgba(20, 28, 40, 0.93);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
-  opacity: 0;
-  transform: translateY(-100%);
-  transition: opacity .4s ease, transform .4s ease;
-  pointer-events: none;
+  border-bottom-color: rgba(200, 132, 43, 0.22);
 }
-.topnav.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.topnav-brand {
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: .02em;
-  color: var(--text-paper);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--ash);
   text-decoration: none;
   white-space: nowrap;
 }
-.topnav-links {
+.brand-logo { width: 40px; height: 40px; flex: 0 0 auto; color: var(--ash); }
+.brand-logo .sun { fill: var(--turmeric); }
+.brand-logo .soil { stroke: var(--laterite); }
+.brand-logo .soil,
+.brand-logo .frame,
+.brand-logo .path {
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.brand-logo .frame, .brand-logo .path { stroke: currentColor; }
+.nav-links {
   display: flex;
-  gap: 1.1rem;
-  margin-left: auto;
+  align-items: center;
+  gap: 1.4rem;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
-.topnav-links::-webkit-scrollbar { display: none; }
-.topnav-links a {
-  font-size: 0.74rem;
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: rgba(245, 239, 228, 0.82);
   text-decoration: none;
   white-space: nowrap;
-  padding-bottom: 2px;
+  padding: 0.35rem 0;
   border-bottom: 1px solid transparent;
   transition: color .2s ease, border-color .2s ease;
 }
-.topnav-links a:hover { color: var(--accent); border-color: var(--accent); }
-.topnav-cta {
-  color: var(--accent) !important;
-  border-color: var(--panel-border) !important;
-}
+.nav-links a:hover { color: var(--turmeric); border-color: var(--turmeric); }
+.nav-links a.nav-cta { color: var(--turmeric); }
 
 @media (max-width: 768px) {
   :root {
@@ -504,15 +569,21 @@ section[id], header[id] { scroll-margin-top: 68px; }
   .verse-line, .verse-sep { margin-left: 0 !important; }
   .land { max-width: 100%; }
   .wordmark { font-size: clamp(2.6rem, 12vw, 4.2rem); }
-  .topnav { padding: 0.5rem 0.8rem; gap: 0.5rem; }
-  .topnav-links { gap: 0.75rem; }
-  .topnav-links a { font-size: 0.68rem; letter-spacing: 0.08em; }
+  .site-nav { padding: 0.6rem 0.9rem; gap: 0.8rem; }
+  .brand-logo { width: 32px; height: 32px; }
+  .brand-mark { font-size: 1.1rem; gap: 0.5rem; }
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.66rem; letter-spacing: 0.07em; }
+  .journey { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .hero-ledger { grid-template-columns: repeat(2, 1fr); }
+  .ledger-item { padding-right: 1rem; }
+  .ledger-item:nth-child(2n) { border-right: 0; }
+  .ledger-item:nth-child(n+3) { border-top: 1px solid rgba(245, 239, 228, 0.18); }
 }
 
 @media (max-width: 560px) {
-  .topnav-brand { display: none; }
-  .topnav-links { margin-left: 0; width: 100%; justify-content: space-between; }
-  .guide-map-wrap { padding: 0.6rem 0.4rem; }
+  .brand-mark span { display: none; }
+  .hero-actions .btn { flex: 1 1 auto; }
 }
 
 /* --- Practical guide / how to reach --- */
@@ -529,28 +600,59 @@ section[id], header[id] { scroll-margin-top: 68px; }
   margin: 0 auto;
   padding: clamp(4rem, 9vw, 7rem) var(--content-pad);
 }
-.guide-map-wrap {
+/* --- Journey: four drawn steps instead of a map plate --- */
+.journey {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+  margin: 1.7rem 0 1rem;
+}
+.journey-step {
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
-  border-radius: 4px;
-  padding: 1.1rem 1.1rem 0.6rem;
-  margin: 1.6rem 0 2.4rem;
+  border-radius: 3px;
+  padding: 1.1rem 0.9rem 1.2rem;
+  text-align: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition: transform .3s ease, border-color .3s ease;
 }
-.guide-map { width: 100%; height: auto; display: block; }
-.guide-map text { font-family: var(--font-body); fill: var(--text-paper); }
-.guide-map .m-label { font-size: 10px; letter-spacing: .04em; }
-.guide-map .m-city { font-size: 11px; font-weight: 600; }
-.guide-map .m-note { font-size: 8.5px; fill: var(--text-muted); letter-spacing: .06em; text-transform: uppercase; }
-.guide-map .m-sea { font-size: 10px; fill: var(--text-muted); letter-spacing: .28em; text-transform: uppercase; }
-.guide-map-cap {
+.journey-step:hover { transform: translateY(-3px); border-color: var(--turmeric); }
+.journey-num {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: .75;
+}
+.journey-ico {
+  width: 60px; height: 60px;
+  display: block;
+  margin: .5rem auto .55rem;
+  color: var(--accent);
+}
+.journey-ico .j-accent { stroke: var(--turmeric); }
+.journey-step h3 {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: .25rem;
+}
+.journey-step p {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.journey-cap {
   font-size: 0.72rem;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
-  padding-top: .5rem;
+  margin: 0 0 2.4rem;
 }
 .guide-grid { display: grid; gap: 1.8rem; }
 .guide-item h3 {
@@ -593,6 +695,19 @@ section[id], header[id] { scroll-margin-top: 68px; }
   transition: background .2s ease, transform .2s ease;
 }
 .cta-btn:hover { background: var(--turmeric); transform: translateY(-2px); }
+.cta-body {
+  max-width: 54ch;
+  margin: 0 auto 2rem;
+  font-size: var(--text-base);
+  color: var(--text-paper);
+}
+.cta-sub {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-top: 1.2rem;
+}
+
 /* --- Raw Photo Gallery --- */
 .gallery-wrap {
   position: relative;
@@ -673,18 +788,25 @@ section[id], header[id] { scroll-margin-top: 68px; }
 <div class="grain" aria-hidden="true"></div>
 <div class="progress-bar" aria-hidden="true"></div>
 
-<nav class="topnav" aria-label="Section navigation">
-  <a class="topnav-brand" href="#top">Maati Katha</a>
-  <div class="topnav-links">
-    <a href="#maati">maati</a>
-    <a href="#west">the day</a>
-    <a href="#village">the village</a>
-    <a href="#material">coexistence</a>
-    <a href="#morning">first morning</a>
-    <a href="#gallery">raw photos</a>
-    <a href="#land">the land</a>
-    <a href="#visit">how to reach</a>
-    <a class="topnav-cta" href="#interest">express interest</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a class="brand-mark" href="#top" aria-label="Maati Katha home">
+    <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <path class="soil" d="M7 38.5c7.5-2.7 14.7-2.7 21.7 0 4.3 1.6 8.4 1.7 12.3.3"/>
+      <path class="frame" d="M12 39V13.5c0-3.1 2.2-5.5 5.2-5.5h13.6c3 0 5.2 2.4 5.2 5.5V39"/>
+      <path class="path" d="M18.3 35.6V14.4l9.7-2.7v25.1l-9.7-1.2Z"/>
+      <path class="path" d="M12 39h24"/>
+      <circle class="sun" cx="32.6" cy="30.4" r="5.9"/>
+    </svg>
+    <span>Maati Katha</span>
+  </a>
+  <div class="nav-links">
+    <a href="#maati">Project</a>
+    <a href="#west">The day</a>
+    <a href="#village">The village</a>
+    <a href="#gallery">Photographs</a>
+    <a href="#land">The land</a>
+    <a href="#visit">How to reach</a>
+    <a class="nav-cta" href="#interest">Pilot</a>
   </div>
 </nav>
 
@@ -692,17 +814,35 @@ section[id], header[id] { scroll-margin-top: 68px; }
   <!-- HERO -->
   <header class="hero">
     <div class="hero-inner">
-      <p class="hero-eyebrow">a seven-day life-exchange</p>
-      <h1 class="wordmark">Maati<br>Katha</h1>
-      <p class="hero-sub">The Weight of Belonging</p>
-    </div>
-    <div class="hero-meta">
-      <span>Sarangada, Kandhamal, Odisha</span>
-      <span class="coords">20.227°N, 84.124°E</span>
-    </div>
-    <p class="hero-tag">No fake experiences. Just life as it is.</p>
-    <div class="scroll-hint" aria-hidden="true">
-      <svg width="22" height="13" viewBox="0 0 22 13" fill="none"><path d="M2 2l9 9 9-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p class="hero-kicker">Pilot in design / Sarangada, Kandhamal</p>
+      <h1 class="wordmark">Maati Katha</h1>
+      <p class="hero-lede">The Weight of Belonging. A westward life-exchange is being built from red soil, eastern fields, the market spine, and the hills beyond Sarangada. The seven-day arc is a design draft, not a public offer yet.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#maati">Read the place</a>
+        <a class="btn secondary" href="#gallery">See the photographs</a>
+      </div>
+      <div class="hero-ledger" aria-label="Current project status">
+        <div class="ledger-item">
+          <span>Status</span>
+          <strong>Pilot</strong>
+          <small>Invitation-only while host, safety, and consent details are settled.</small>
+        </div>
+        <div class="ledger-item">
+          <span>Ground</span>
+          <strong>20.227&deg;N</strong>
+          <small>Approximate Sarangada coordinate in Kandhamal, Odisha.</small>
+        </div>
+        <div class="ledger-item">
+          <span>Movement</span>
+          <strong>East to west</strong>
+          <small>Fields, market core, then hill and forest edge.</small>
+        </div>
+        <div class="ledger-item">
+          <span>Rule</span>
+          <strong>Consent first</strong>
+          <small>No route, photograph, or stay is public until it is verified.</small>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -891,48 +1031,51 @@ section[id], header[id] { scroll-margin-top: 68px; }
   <section class="guide" id="visit">
     <div class="guide-inner">
       <span class="eyebrow reveal">how to reach</span>
-      <div class="guide-map-wrap reveal" style="--d:.08s">
-        <svg class="guide-map" viewBox="0 0 420 300" role="img" aria-label="Schematic map of the route from Bhubaneswar westward into Kandhamal to Sarangada. Sarangada lies inland in the Eastern Ghats; the Bay of Bengal is to the east.">
-          <!-- sea -->
-          <path d="M420,-5 L420,305 L232,305 C 250,255 305,195 348,125 C 372,86 392,42 412,-5 Z" fill="rgba(31,42,58,0.20)"/>
-          <path d="M232,305 C 250,255 305,195 348,125 C 372,86 392,42 412,-5" fill="none" stroke="rgba(31,42,58,0.45)" stroke-width="1.2"/>
-          <text class="m-sea" x="392" y="150" transform="rotate(90 392 150)" text-anchor="middle">Bay of Bengal</text>
-          <!-- hill band (Eastern Ghats) -->
-          <g fill="rgba(45,59,38,0.30)">
-            <path d="M-5,175 L30,120 L65,175 Z"/>
-            <path d="M35,175 L78,105 L120,175 Z"/>
-            <path d="M95,175 L135,120 L175,175 Z"/>
-            <path d="M0,180 L200,180 L200,210 L0,210 Z"/>
-          </g>
-          <text class="m-note" x="14" y="200">Eastern Ghats · forest</text>
-          <!-- route: Bhubaneswar -> Sarangada -->
-          <defs>
-            <marker id="arw" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto">
-              <path d="M0,0 L6,3.2 L0,6.4 Z" fill="#8B3A1F"/>
-            </marker>
-          </defs>
-          <path d="M328,80 C 250,140 150,120 78,92" fill="none" stroke="#8B3A1F" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arw)"/>
-          <text class="m-note" x="205" y="132" text-anchor="middle">≈ 250 km · road only</text>
-          <!-- Bhubaneswar -->
-          <circle cx="330" cy="80" r="3.4" fill="#C8842B"/>
-          <text class="m-city" x="325" y="70" text-anchor="end">Bhubaneswar</text>
-          <text class="m-note" x="325" y="60" text-anchor="end">fly in · nearest airport</text>
-          <!-- Phulbani -->
-          <circle cx="86" cy="52" r="2.6" fill="currentColor"/>
-          <text class="m-label" x="94" y="49">Phulbani</text>
-          <text class="m-note" x="94" y="59">district town</text>
-          <!-- Sarangada -->
-          <circle cx="70" cy="92" r="6" fill="none" stroke="#C8842B" stroke-width="1.4"/>
-          <circle cx="70" cy="92" r="2.6" fill="#C8842B"/>
-          <text class="m-city" x="82" y="90">Sarangada</text>
-          <text class="m-note" x="82" y="100">your destination · 762106</text>
-          <!-- Berhampur -->
-          <circle cx="169" cy="236" r="2.8" fill="currentColor"/>
-          <text class="m-label" x="177" y="233">Berhampur</text>
-          <text class="m-note" x="177" y="243">nearest railhead · ~150 km</text>
-        </svg>
-        <p class="guide-map-cap">Bhubaneswar to Sarangada · schematic, not to scale</p>
-      </div>
+      <ol class="journey">
+        <li class="journey-step reveal" style="--d:.06s">
+          <span class="journey-num">one</span>
+          <svg class="journey-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M57 9 L7 30 l19 7 6 16 8-18z"/>
+            <path d="M26 37 L57 9"/>
+            <path d="M6 54 q13 5 26 0" class="j-accent" stroke-dasharray="2 5"/>
+          </svg>
+          <h3>fly in</h3>
+          <p>Bhubaneswar. The nearest airport, and where most journeys begin.</p>
+        </li>
+        <li class="journey-step reveal" style="--d:.12s">
+          <span class="journey-num">two</span>
+          <svg class="journey-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 58 C 16 42 34 40 34 26 C 34 16 28 12 26 5"/>
+            <path d="M35 58 C 38 44 48 41 48 26 C 48 16 40 11 38 5"/>
+            <path d="M24 56 C 27 42 41 40 41 26 C 41 16 34 11 32 6" class="j-accent" stroke-dasharray="3 6"/>
+          </svg>
+          <h3>drive west</h3>
+          <p>Roughly 250 km, most of a day, from the south past Baliguda.</p>
+        </li>
+        <li class="journey-step reveal" style="--d:.18s">
+          <span class="journey-num">three</span>
+          <svg class="journey-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 45 L19 22 L33 45"/>
+            <path d="M25 45 L41 17 L59 45"/>
+            <path d="M2 45 h60"/>
+            <path d="M12 54 h17M38 54 h14" class="j-accent"/>
+          </svg>
+          <h3>the ghats</h3>
+          <p>The plain gives way to forest. This is where the land starts talking.</p>
+        </li>
+        <li class="journey-step reveal" style="--d:.24s">
+          <span class="journey-num">four</span>
+          <svg class="journey-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 29 L32 10 L56 29"/>
+            <path d="M15 29 v23 h34 V29"/>
+            <path d="M27 52 V38 h10 v14"/>
+            <path d="M5 52 h54" class="j-accent"/>
+          </svg>
+          <h3>arrive</h3>
+          <p>Sarangada. A kilometre of market road. Pincode 762106.</p>
+        </li>
+      </ol>
+      <p class="journey-cap">Bhubaneswar to Sarangada · the last stretch is road only</p>
       <div class="guide-grid">
         <div class="guide-item reveal" style="--d:.12s">
           <h3>getting here</h3>
@@ -957,9 +1100,10 @@ section[id], header[id] { scroll-margin-top: 68px; }
   <!-- CTA -->
   <section class="cta" id="interest">
     <div class="cta-inner reveal">
-      <p class="cta-line">Seven days. One village. Come as you are.</p>
-      <a class="cta-btn" href="mailto:chandanpanda615@gmail.com?subject=Maati%20Katha%20%E2%80%94%20expression%20of%20interest">Express interest</a>
-      <p class="cta-sub">cohorts are forming. write to us and we'll tell you when the road is open.</p>
+      <p class="cta-line">Seven days. One village. Not open yet.</p>
+      <p class="cta-body">This is a pilot in design. The route, the host model, and what the village is willing to share are still being settled — in the village, before they are settled on a website. Nothing here is bookable, and no date is being promised.</p>
+      <a class="cta-btn" href="mailto:chandanpanda615@gmail.com?subject=Maati%20Katha%20%E2%80%94%20following%20the%20build">Follow the build</a>
+      <p class="cta-sub">write if you want to know when this changes. we'll only write back when it does.</p>
     </div>
   </section>
 </main>
@@ -971,8 +1115,8 @@ section[id], header[id] { scroll-margin-top: 68px; }
   var ctx = canvas.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var W = 0, H = 0, DPR = 1;
-  var p = 0;            // scroll progress 0..1
-  var stars = [], drops = [], embers = [], hills = [];
+  var p = 0;            // scroll progress 0..1 — parallax only, never time of day
+  var hills = [];
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -986,15 +1130,6 @@ section[id], header[id] { scroll-margin-top: 68px; }
   function rand(a, b) { return a + Math.random() * (b - a); }
 
   function buildScene() {
-    // stars
-    stars = [];
-    for (var i = 0; i < 90; i++) stars.push({ x: rand(0, W), y: rand(0, H * 0.55), r: rand(0.4, 1.4), t: rand(0, 6.28) });
-    // rain
-    drops = [];
-    for (var j = 0; j < 130; j++) drops.push({ x: rand(0, W), y: rand(0, H), len: rand(9, 20), sp: rand(9, 16) });
-    // embers
-    embers = [];
-    for (var k = 0; k < 34; k++) embers.push({ x: rand(0, W), y: rand(H * 0.4, H), vy: rand(0.25, 0.8), vx: rand(-0.25, 0.25), r: rand(0.6, 1.8), a: rand(0.2, 0.9) });
     // hill layers (far -> near)
     hills = [];
     var palette = [[118,140,128],[84,106,94],[54,72,58],[32,42,34]];
@@ -1012,36 +1147,18 @@ section[id], header[id] { scroll-margin-top: 68px; }
     }
   }
 
-  // sky keyframes: sunrise -> morning -> monsoon overcast -> golden -> night
-  var SKY = [
-    { p: 0.00, top: [26, 32, 56], mid: [122, 60, 46], bot: [206, 134, 62] },
-    { p: 0.22, top: [96, 126, 156], mid: [198, 176, 132], bot: [231, 224, 206] },
-    { p: 0.46, top: [104, 112, 106], mid: [150, 152, 138], bot: [178, 178, 160] },
-    { p: 0.70, top: [66, 54, 78], mid: [201, 120, 48], bot: [233, 172, 74] },
-    { p: 1.00, top: [9, 13, 25], mid: [22, 30, 50], bot: [38, 44, 64] }
-  ];
+  // One sky, held at sunrise. Scroll drives parallax, not the clock — the essays
+  // are not timestamped, so every panel is read against the same readable backdrop.
+  var SKY = { top: [26, 32, 56], mid: [122, 60, 46], bot: [206, 134, 62] };
+  var AMB = (SKY.bot[0] + SKY.bot[1] + SKY.bot[2]) / 3 / 255;   // ground light
+  var MIST = 0.34;
+
   function lerp(a, b, t) { return a + (b - a) * t; }
   function mix(c1, c2, t) { return [lerp(c1[0], c2[0], t), lerp(c1[1], c2[1], t), lerp(c1[2], c2[2], t)]; }
   function rgb(c, a) { return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + (a === undefined ? 1 : a) + ')'; }
-  function skyAt(q) {
-    var a = SKY[0], b = SKY[SKY.length - 1];
-    for (var i = 0; i < SKY.length - 1; i++) { if (q >= SKY[i].p && q <= SKY[i + 1].p) { a = SKY[i]; b = SKY[i + 1]; break; } }
-    var t = b.p > a.p ? (q - a.p) / (b.p - a.p) : 0;
-    return { top: mix(a.top, b.top, t), mid: mix(a.mid, b.mid, t), bot: mix(a.bot, b.bot, t) };
-  }
-  // ramp helper: 0 outside [s,e], 1 in the middle plateau
-  function band(q, s, e) {
-    if (q < s || q > e) return 0;
-    var m = (s + e) / 2, half = (e - s) / 2;
-    return 1 - Math.abs(q - m) / half;
-  }
 
   function draw(time) {
-    var sky = skyAt(p);
-    var amb = (sky.bot[0] + sky.bot[1] + sky.bot[2]) / 3 / 255; // brightness of ground light
-    var night = Math.max(0, (p - 0.72) / 0.28);
-    var rain = band(p, 0.34, 0.66) * 0.85;
-    var mist = 0.28 + band(p, 0.30, 0.62) * 0.6;
+    var sky = SKY, amb = AMB, mist = MIST;
 
     // sky gradient
     var g = ctx.createLinearGradient(0, 0, 0, H);
@@ -1051,27 +1168,13 @@ section[id], header[id] { scroll-margin-top: 68px; }
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
 
-    // stars (night)
-    if (night > 0.02) {
-      for (var i = 0; i < stars.length; i++) {
-        var s = stars[i];
-        var tw = reduce ? 0.8 : 0.6 + 0.4 * Math.sin(time * 0.002 + s.t);
-        ctx.fillStyle = rgb([240, 238, 224], night * tw * 0.9);
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.2832); ctx.fill();
-      }
-    }
-
-    // celestial body: sun arc rising then setting; becomes moon at night
-    var alt = Math.sin(Math.min(1, p / 0.82) * Math.PI);       // 0 at dawn/dusk, 1 midday
-    var cx = lerp(W * 0.82, W * 0.16, Math.min(1, p / 0.82));   // drift east->west
-    var cy = H * (0.80 - 0.56 * alt);
-    var isMoon = p > 0.8;
-    if (isMoon) { cx = W * 0.24; cy = H * 0.22; }
-    var rad = Math.min(W, H) * (isMoon ? 0.05 : 0.07);
-    var bodyCol = isMoon ? [232, 230, 214] : mix([255, 236, 190], sky.mid, 0.25);
-    var glow = ctx.createRadialGradient(cx, cy, rad * 0.4, cx, cy, rad * (isMoon ? 5 : 8));
-    glow.addColorStop(0, rgb(bodyCol, isMoon ? 0.5 : 0.85));
-    glow.addColorStop(0.2, rgb(isMoon ? [180, 190, 210] : [240, 180, 90], 0.35));
+    // Sun parked low on the eastern horizon and largely occluded by the ridges,
+    // so it reads as a warm glow on the skyline and never sits over an essay.
+    var cx = W * 0.82, cy = H * 0.78, rad = Math.min(W, H) * 0.07;
+    var bodyCol = mix([255, 236, 190], sky.mid, 0.25);
+    var glow = ctx.createRadialGradient(cx, cy, rad * 0.4, cx, cy, rad * 8);
+    glow.addColorStop(0, rgb(bodyCol, 0.85));
+    glow.addColorStop(0.2, rgb([240, 180, 90], 0.35));
     glow.addColorStop(1, rgb(bodyCol, 0));
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, W, H);
@@ -1110,39 +1213,6 @@ section[id], header[id] { scroll-margin-top: 68px; }
       }
     }
 
-    // rain (monsoon fraction)
-    if (rain > 0.02 && !reduce) {
-      ctx.strokeStyle = rgb([200, 210, 210], rain * 0.5);
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (var d = 0; d < drops.length; d++) {
-        var dp = drops[d];
-        ctx.moveTo(dp.x, dp.y);
-        ctx.lineTo(dp.x - 2, dp.y + dp.len);
-        dp.y += dp.sp; dp.x -= 0.6;
-        if (dp.y > H) { dp.y = -dp.len; dp.x = rand(0, W); }
-      }
-      ctx.stroke();
-    } else if (rain > 0.02) {
-      ctx.strokeStyle = rgb([200, 210, 210], rain * 0.4);
-      ctx.lineWidth = 1; ctx.beginPath();
-      for (var dd = 0; dd < drops.length; dd++) { var q2 = drops[dd]; ctx.moveTo(q2.x, q2.y); ctx.lineTo(q2.x - 2, q2.y + q2.len); }
-      ctx.stroke();
-    }
-
-    // embers / fireflies (night)
-    if (night > 0.05) {
-      for (var e = 0; e < embers.length; e++) {
-        var em = embers[e];
-        var flick = reduce ? em.a : em.a * (0.6 + 0.4 * Math.sin(time * 0.004 + em.x));
-        ctx.fillStyle = rgb([220, 150, 70], night * flick);
-        ctx.beginPath(); ctx.arc(em.x, em.y, em.r, 0, 6.2832); ctx.fill();
-        if (!reduce) {
-          em.y -= em.vy; em.x += em.vx;
-          if (em.y < H * 0.35) { em.y = H + 5; em.x = rand(0, W); }
-        }
-      }
-    }
   }
 
   function frame(t) {
@@ -1171,13 +1241,11 @@ section[id], header[id] { scroll-margin-top: 68px; }
   document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
 
   var bar = document.querySelector('.progress-bar');
-  var hint = document.querySelector('.scroll-hint');
-  var nav = document.querySelector('.topnav');
+  var nav = document.querySelector('.site-nav');
   window.addEventListener('scroll', function () {
     var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
     bar.style.width = (pct * 100) + '%';
-    if (hint) hint.style.opacity = window.scrollY > 90 ? '0' : '1';
-    if (nav) nav.classList.toggle('show', window.scrollY > window.innerHeight * 0.7);
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 })();
 </script>
