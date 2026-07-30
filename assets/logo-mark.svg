@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-labelledby="mkTitle mkDesc">
+  <title id="mkTitle">Maati Katha mark</title>
+  <desc id="mkDesc">A doorway standing on the ground, with the sun rising on its threshold.</desc>
+  <path d="M8.7 18.75a3.3 3.3 0 0 1 6.6 0z" fill="#C8842B"/>
+  <g fill="none" stroke="#E8E1D4" stroke-width="1.7" stroke-linecap="round">
+    <path d="M6.6 18.75V12.15a5.4 5.4 0 0 1 10.8 0v6.6"/>
+    <path d="M4.65 18.75h14.7"/>
+  </g>
+</svg>

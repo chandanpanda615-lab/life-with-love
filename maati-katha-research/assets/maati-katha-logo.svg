@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-labelledby="title desc">
   <title id="title">Maati Katha logo mark</title>
-  <desc id="desc">A doorway, an open threshold, a setting sun, and a red soil line.</desc>
-  <path d="M7 38.5c7.5-2.7 14.7-2.7 21.7 0 4.3 1.6 8.4 1.7 12.3.3" fill="none" stroke="#8B3A1F" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M12 39V13.5c0-3.1 2.2-5.5 5.2-5.5h13.6c3 0 5.2 2.4 5.2 5.5V39" fill="none" stroke="#E8E1D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M18.3 35.6V14.4l9.7-2.7v25.1l-9.7-1.2Z" fill="none" stroke="#E8E1D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M12 39h24" fill="none" stroke="#E8E1D4" stroke-width="2.4" stroke-linecap="round"/>
-  <circle cx="32.6" cy="30.4" r="5.9" fill="#C8842B"/>
+  <desc id="desc">A doorway standing on the ground, with the sun rising on its threshold.</desc>
+  <path d="M8.7 18.75a3.3 3.3 0 0 1 6.6 0z" fill="#C8842B"/>
+  <g fill="none" stroke="#E8E1D4" stroke-width="1.7" stroke-linecap="round">
+    <path d="M6.6 18.75V12.15a5.4 5.4 0 0 1 10.8 0v6.6"/>
+    <path d="M4.65 18.75h14.7"/>
+  </g>
 </svg>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Why I am building this slowly — Maati Katha</title>
+<meta name="description" content="A village is not a product, and I would rather take two years than get this wrong.">
+<meta name="theme-color" content="#1F2A3A">
+</head>
+<body>
+<style>
+/* ponytail: this page has its own small stylesheet instead of sharing index.html's.
+   The site's webfonts are base64'd inside index.html, so a shared file would mean
+   extracting them first. Georgia is the same fallback index.html already uses.
+   If posts ever outgrow this, pull the fonts out to posts/../assets and share one CSS. */
+:root {
+  --laterite: #8B3A1F;
+  --turmeric: #C8842B;
+  --paper: #23303f;
+  --muted: #5a5347;
+  --bg: #EEE9DC;
+  --accent: var(--laterite);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #E8E1D4; --muted: #a89c88; --bg: #141c28; --accent: var(--turmeric); }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--paper);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 68ch; margin: 0 auto; padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 5vw, 2rem) 5rem; }
+.back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+.back:hover { text-decoration: underline; }
+.date {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+}
+h1 {
+  font-family: Georgia, 'Palatino Linotype', serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  line-height: 1.14;
+  text-wrap: balance;
+  margin-bottom: 2rem;
+}
+h2 {
+  font-family: Georgia, 'Palatino Linotype', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  margin: 2.4rem 0 0.9rem;
+}
+p + p { margin-top: 1.3em; }
+em { font-style: italic; }
+blockquote {
+  font-family: Georgia, 'Palatino Linotype', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.4;
+  margin: 2rem 0;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--accent);
+}
+figure { margin: 2.2rem 0; }
+figure img { width: 100%; height: auto; display: block; border-radius: 4px; }
+figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--muted); }
+.end { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(139,58,31,0.22); font-size: 0.9rem; color: var(--muted); }
+</style>
+
+<article class="wrap">
+  <a class="back" href="../index.html#writing">&larr; Maati Katha</a>
+
+  <span class="date">28 July 2026</span>
+  <h1>Why I am building this slowly</h1>
+
+  <p>Every version of this idea that moves fast ends the same way. Somebody books a week, arrives with a camera, gets shown a performance, and leaves with photographs of a place that does not exist. The village gets paid and gets nothing.</p>
+
+  <p>So I am doing the slow parts first. Who hosts. What happens if someone falls ill three hours from a hospital. Which houses are willing, and which are not, and whether a family can say no in year two after saying yes in year one.</p>
+
+  <blockquote>None of that is answered on a website. It is answered in the village, and then written down here.</blockquote>
+
+  <p>That is why nothing on this site is bookable. When it changes, this is where it will say so.</p>
+
+  <!-- A photo, when you have one:
+  <figure>
+    <img src="../Village_Image/Photoes_Gallery/your-photo.jpg" alt="Describe what is in the frame">
+    <figcaption>Where it was taken, and when.</figcaption>
+  </figure>
+  -->
+
+  <p class="end">Written in Sarangada, Kandhamal. <a href="../index.html#writing">More posts &rarr;</a></p>
+</article>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Maati Katha">
+  <rect width="32" height="32" rx="7" fill="#8B3A1F"/>
+  <path d="M11.6 25a4.4 4.4 0 0 1 8.8 0z" fill="#C8842B"/>
+  <g fill="none" stroke="#E8E1D4" stroke-width="2.4" stroke-linecap="round">
+    <path d="M8.8 25V16.2a7.2 7.2 0 0 1 14.4 0V25"/>
+    <path d="M6.2 25h19.6"/>
+  </g>
+</svg>
