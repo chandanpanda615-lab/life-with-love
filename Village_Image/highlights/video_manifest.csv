@@ -1,0 +1,14 @@
+filename,video_source,timestamp,width,height,quality_score,hero_candidate
+video_highlight_01.jpg,VID-20260730-WA0018.mp4,59.9s,860,1530,4724.3,No
+video_highlight_02.jpg,VID-20260730-WA0026.mp4,30.0s,1865,1051,3910.1,Yes
+video_highlight_03.jpg,VID-20260730-WA0018.mp4,10.0s,860,1530,3609.6,No
+video_highlight_04.jpg,VID-20260730-WA0026.mp4,27.7s,1865,1051,3474.1,No
+video_highlight_05.jpg,VID-20260730-WA0015.mp4,20.1s,1865,1051,2067.4,No
+video_highlight_06.jpg,VID-20260730-WA0033.mp4,30.0s,860,1530,1929.8,No
+video_highlight_07.jpg,VID-20260730-WA0032.mp4,10.0s,860,1530,1899.2,No
+video_highlight_08.jpg,VID-20260730-WA0014.mp4,0.0s,860,1530,1891.9,No
+video_highlight_09.jpg,VID-20260730-WA0017.mp4,0.0s,1865,1051,1828.0,No
+video_highlight_10.jpg,VID-20260730-WA0015.mp4,0.0s,1865,1051,1809.5,No
+video_highlight_11.jpg,VID-20260730-WA0017.mp4,1.8s,1865,1051,1473.2,No
+video_highlight_12.jpg,VID-20260730-WA0016.mp4,13.1s,1865,1051,1205.0,No
+video_highlight_13.jpg,VID-20260730-WA0016.mp4,10.1s,1865,1051,993.6,No
