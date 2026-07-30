@@ -6,3 +6,5 @@ __pycache__/
 
 # Photo intake: originals stay out of git. Only assets/photos/ (built) is committed.
 _incoming/
+Village_Image/images/
+
