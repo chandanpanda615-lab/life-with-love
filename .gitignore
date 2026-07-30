@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 
+
+# Photo intake: originals stay out of git. Only assets/photos/ (built) is committed.
+_incoming/
