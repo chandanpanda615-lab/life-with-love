@@ -2,7 +2,7 @@
 
 This documents what the site already does. It is a reference for keeping new pages
 consistent, not a rebrand. Everything here is defined once in the `:root` block of
-`index.html` — change it there, not in individual rules.
+`assets/site.css` — change it there, not in individual rules.
 
 ## Name
 
@@ -87,22 +87,32 @@ base64 fonts, so inlining it per page would triple ~217 KB.
 Each page sets its own backdrop with a body class (`bg-hero`, `bg-land`, `bg-road`).
 There is no drawn canvas any more — every page sits on a real, darkened photograph.
 
-**Image paths belong in `site.css`, not in inline styles.** A `url()` inside a CSS
-custom property resolves relative to the stylesheet that parsed it, so a path written
-in the HTML as `url('assets/land.jpg')` is fetched as `assets/assets/land.jpg`. The
-`--page-bg` / `--head-bg` / `--card-bg` values are therefore declared in `site.css`
-where the bare filename is correct.
+**Image paths belong in `site.css`, not in inline styles, and not inside a custom
+property.** A `url()` written in an ordinary declaration resolves against the
+stylesheet, so the bare filename is correct in `site.css`. A `url()` carried inside a
+*custom property* does not: Chrome resolves it against the document, so the old
+`--page-bg: url('road.jpg')` was fetched from the site root and 404'd on every page —
+which is why the backdrops rendered as flat dark panels with no photograph in them.
+
+The page photographs are therefore attached with plain `background-image` rules on
+`body.bg-*::before`, `.head-*` and `.card-*` at the foot of `site.css`. Only `--scrim`
+stays a custom property, because a gradient has no URL to resolve.
 
 ## Photographs
 
-`assets/hero.jpg`, `land.jpg` and `road.jpg` are stand-ins cropped out of 6-up phone
-collages in `maati-katha-research/assets/`, so they are 466–1145px wide and go soft on
-a large display. Each is a **single swap point** — drop a real full-resolution
-photograph at the same path and the page updates with no markup or CSS change.
+`assets/hero.jpg` (2400px), `land.jpg` and `road.jpg` are real photographs, built by
+`tools/photos.py` from originals in the gitignored `_incoming/`. Each is a **single
+swap point** — drop a new file at the same path and the page updates with no markup
+or CSS change.
 
-The gallery on `land.html` keeps its six `<figure>` cards with the `<img>` commented
-out; uncomment one and the dashed placeholder disappears by itself. Its captions are
-placeholders for narration that has not been written yet.
+Nothing is upscaled. An earlier pass ran Real-ESRGAN 4× over compressed 1080p video
+frames; it invented detail that was never in the footage and the results looked fake.
+Video frames are published at native resolution or not at all.
+
+The gallery on `land.html` is a hand-curated mosaic. Cards take `--feature` (4×2),
+`--tall` (2×2, for portraits) or `--wide` (4×1, for panoramas); no modifier gives an
+ordinary 2×1 cell. Every published photograph, its source and a longer description are
+logged in `PHOTOS.md` — the working manifest lives in `_incoming/` and is not committed.
 
 ## Voice
 

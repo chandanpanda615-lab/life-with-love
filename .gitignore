@@ -5,8 +5,8 @@ __pycache__/
 
 
 # Photo intake: originals stay out of git. Only assets/photos/ (built) is committed.
+# Village_Image/ is a scratch area for originals — all of it stays local.
 _incoming/
-Village_Image/images/
-Village_Image/video_extractions/
+Village_Image/
 tools/realesrgan/
 

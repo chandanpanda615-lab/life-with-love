@@ -46,9 +46,90 @@
   <header class="page-head head-land">
     <div class="page-head-inner">
       <h1>The land</h1>
-      <p>Sarangada sits where it sits because of the soil. These are the notes, the plain description, and the photographs as they get collected.</p>
+      <p>Sarangada sits where it sits because of the soil. Photographs first. The notes are underneath.</p>
     </div>
   </header>
+
+  <!-- PHOTOGRAPHS — every file here is built by tools/photos.py from an original
+       in _incoming/, and only after its manifest row says publish=yes. To add one:
+       copy a <figure>, point it at the new slug, write the caption. Sizes come from
+       the --feature / --tall / --wide classes; leave them off for an ordinary cell. -->
+  <section class="gallery-wrap" id="gallery">
+    <div class="gallery-header inner reveal">
+      <span class="eyebrow">still being collected</span>
+      <h2 class="gallery-title">Photographs</h2>
+      <p class="gallery-sub">Sarangada as it was on the day. Nothing staged, and no face published without the person agreeing to it first.</p>
+    </div>
+    <div class="gallery-grid inner">
+      <figure class="photo-card photo-card--feature reveal" style="--d:.06s">
+        <img src="assets/photos/terraces.jpg" alt="Paddy terraced into a hillside in Kandhamal, banana and palm above the bunds" loading="lazy">
+        <figcaption>Paddy terraced into the hillside</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--tall reveal" style="--d:.10s">
+        <img src="assets/photos/street-dusk.jpg" alt="Power lines over the market road at dusk, hills behind" loading="lazy">
+        <figcaption>Power lines over the market road</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--wide reveal" style="--d:.14s">
+        <img src="assets/photos/football-wide.jpg" alt="Villagers watching a football match on the red earth ground" loading="lazy">
+        <figcaption>The whole village at the football ground</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--tall reveal" style="--d:.18s">
+        <img src="assets/photos/thali.jpg" alt="Rice, dal and greens served in steel bowls" loading="lazy">
+        <figcaption>Rice, dal and greens</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.22s">
+        <img src="assets/photos/mist-hills.jpg" alt="Mist sitting on forested hills of the Eastern Ghats" loading="lazy">
+        <figcaption>Mist on the Eastern Ghats</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.26s">
+        <img src="assets/photos/water-tower.jpg" alt="The village water tower against an evening sky" loading="lazy">
+        <figcaption>The water tower at dusk</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--tall reveal" style="--d:.30s">
+        <img src="assets/photos/women-earth.jpg" alt="Women sorting harvest on bare red earth outside a mud-walled house" loading="lazy">
+        <figcaption>Sorting the harvest on bare earth</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.34s">
+        <img src="assets/photos/ground-red.jpg" alt="The red earth football ground before a match, trees along the far edge" loading="lazy">
+        <figcaption>Red earth, before the match</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.38s">
+        <img src="assets/photos/paddy-green.jpg" alt="Green paddy after rain, hills in the distance" loading="lazy">
+        <figcaption>Paddy after the rain</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--tall reveal" style="--d:.42s">
+        <img src="assets/photos/fire-night.jpg" alt="People standing around a fire after dark" loading="lazy">
+        <figcaption>The fire after dark</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.46s">
+        <img src="assets/photos/market-hills.jpg" alt="The market road with hills rising behind the shopfronts" loading="lazy">
+        <figcaption>Market road, hills behind</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.50s">
+        <img src="assets/photos/bikes-paddy.jpg" alt="Motorcycles parked at the edge of a green paddy field" loading="lazy">
+        <figcaption>Bikes at the edge of the paddy</figcaption>
+      </figure>
+      <figure class="photo-card photo-card--tall reveal" style="--d:.54s">
+        <img src="assets/photos/road-ghats.jpg" alt="The road climbing west into the Eastern Ghats" loading="lazy">
+        <figcaption>The road climbing west</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.58s">
+        <img src="assets/photos/shop-night.jpg" alt="A lit village shop open after dark" loading="lazy">
+        <figcaption>The shop stays open after dark</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.62s">
+        <img src="assets/photos/road-sunset.jpg" alt="Sunset over the village road" loading="lazy">
+        <figcaption>Sunset over the village road</figcaption>
+      </figure>
+      <figure class="photo-card reveal" style="--d:.66s">
+        <img src="assets/photos/pandal.jpg" alt="Crowd seated inside a decorated festival pandal" loading="lazy">
+        <figcaption>Inside the festival pandal</figcaption>
+      </figure>
+    </div>
+    <p class="gallery-more inner reveal">
+      <small>More photographs as they are taken. These are phone pictures, not a shoot — that is the point.</small>
+    </p>
+  </section>
 
   <!-- NOTES — click a box to open it. To add one, copy a <details> block. -->
   <section class="notes" id="notes">
@@ -108,84 +189,38 @@
 
     </div>
   </section>
-  <!-- THE LAND -->
-  <section class="land" id="land">
-    <span class="land-eyebrow reveal">what the land says</span>
-    <p class="verse-line reveal" style="--d:.06s; --indent:0%">Bright green paddy fields terraced into the hillside, their earthen bunds holding water.</p>
-    <span class="verse-sep reveal" style="--d:.14s; --indent:10%"></span>
-    <p class="verse-line reveal" style="--d:.18s; --indent:10%">A single-story building with mud-plastered walls and simple wooden doors. A pair of sandals lies on the bare dirt ground outside.</p>
-    <p class="verse-line reveal" style="--d:.26s; --indent:3%">The atmosphere appears humid and still.</p>
-    <span class="verse-sep reveal" style="--d:.32s; --indent:14%"></span>
-    <p class="verse-line reveal" style="--d:.36s; --indent:14%">Fire-roasted vegetables — charred potatoes, red onions, tomatoes, a green chili — on a piece of aluminum foil.</p>
-    <p class="verse-line reveal" style="--d:.44s; --indent:5%">A communal meal eaten directly on the bare reddish-brown earth.</p>
-    <span class="verse-sep reveal" style="--d:.5s; --indent:8%"></span>
-    <p class="verse-line reveal" style="--d:.54s; --indent:0%">Different eras of technology and material culture coexist.</p>
-    <p class="verse-line reveal" style="--d:.62s; --indent:11%">The rust, the bare earth, and the worn building are presented plainly.</p>
-    <span class="verse-sep reveal" style="--d:.68s; --indent:4%"></span>
-    <p class="verse-line reveal" style="--d:.72s; --indent:4%">A week of unscripted life beneath the mist of the Eastern Ghats.</p>
-    <p class="verse-line reveal" style="--d:.78s; --indent:12%">The warmth of shared meals on leaf-plates and bare red soil.</p>
-    <p class="verse-line reveal" style="--d:.84s; --indent:2%">Seven days that leave you part of Sarangada's quiet story.</p>
-  </section>
-  <!-- RAW PHOTOS GALLERY -->
-  <section class="gallery-wrap" id="gallery">
-    <div class="gallery-header inner reveal">
-      <span class="eyebrow">still being collected</span>
-      <h2 class="gallery-title">Photographs</h2>
-      <p class="gallery-sub">Six frames of Sarangada, one for each part of the place. Nothing staged, and nobody's face published without them agreeing to it first.</p>
-    </div>
-    <!-- Six is the whole homepage set. Put the files in Village_Image/Photoes_Gallery/,
-         then uncomment the <img> in a card and write its caption. The dashed
-         "photo coming" styling disappears by itself once an <img> is present. -->
-    <div class="gallery-grid inner">
-      <figure class="photo-card reveal" style="--d:.06s">
-        <img src="assets/photos/ai_video_highlight_03.jpg" alt="3392x1912 Real-ESRGAN AI landscape view of Sarangada mist and hills" loading="lazy">
-        <figcaption>Monsoon mist & hills (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.12s">
-        <img src="assets/photos/ai_video_highlight_04.jpg" alt="3392x1912 Real-ESRGAN AI panoramic paddy fields and country horizon" loading="lazy">
-        <figcaption>Paddy fields east (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.18s">
-        <img src="assets/photos/ai_video_highlight_05.jpg" alt="3392x1912 Real-ESRGAN AI view of village laterite road and greenery" loading="lazy">
-        <figcaption>The village road (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.24s">
-        <img src="assets/photos/ai_video_highlight_06.jpg" alt="3392x1912 Real-ESRGAN AI detailed view of Sarangada country path" loading="lazy">
-        <figcaption>Country path (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.30s">
-        <img src="assets/photos/ai_video_highlight_07.jpg" alt="3392x1912 Real-ESRGAN AI wide view of Kandhamal valley" loading="lazy">
-        <figcaption>Kandhamal valley (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.36s">
-        <img src="assets/photos/ai_video_highlight_08.jpg" alt="3392x1912 Real-ESRGAN AI sunlight and monsoon clouds over fields" loading="lazy">
-        <figcaption>Sunlight & clouds (4K AI)</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.42s">
-        <img src="assets/photos/ai_video_highlight_01.jpg" alt="Ultra-high definition 1912x3400 village atmosphere" loading="lazy">
-        <figcaption>Village atmosphere</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.48s">
-        <img src="assets/photos/ai_video_highlight_02.jpg" alt="Ultra-high definition 1912x3400 rural threshold" loading="lazy">
-        <figcaption>Rural threshold</figcaption>
-      </figure>
-      <figure class="photo-card reveal" style="--d:.54s">
-        <img src="assets/photos/ai_video_highlight_09.jpg" alt="Ultra-high definition 1912x3400 morning light across village" loading="lazy">
-        <figcaption>Morning light</figcaption>
-      </figure>
-    </div>
-    <p class="gallery-more inner reveal">
-      <!-- TODO: replace # with the album URL (Google Photos, Flickr, wherever they live). -->
-      <a href="#">See the full album &rarr;</a>
-      <small>The rest of the photographs live outside this site, so this page stays quick to load.</small>
-    </p>
-  </section>
 
   <section class="page-jump">
     <a class="btn primary" href="visit.html">How to reach &rarr;</a>
   </section>
 
 </main>
+
+<footer class="site-foot">
+  <div class="site-foot-inner">
+    <div class="foot-col foot-brand">
+      <a class="brand-mark" href="index.html" aria-label="Maati Katha home">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path class="sun" d="M8.7 18.75a3.3 3.3 0 0 1 6.6 0z"/>
+          <path class="frame" d="M6.6 18.75V12.15a5.4 5.4 0 0 1 10.8 0v6.6"/>
+          <path class="frame" d="M4.65 18.75h14.7"/>
+        </svg>
+        <span>Maati Katha</span>
+      </a>
+      <p class="foot-loc">Sarangada · Nuagaon Block · Kandhamal · Odisha · 20.227°N, 84.124°E</p>
+    </div>
+    <div class="foot-col foot-links">
+      <nav class="foot-nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="land.html">The land</a>
+        <a href="visit.html">How to reach</a>
+        <a href="visit.html#interest">Pilot</a>
+      </nav>
+      <p class="foot-disclaimer">Nothing on this site is bookable. No route, photograph, or host detail is published before it is verified on the ground and consented to.</p>
+      <a class="foot-mail" href="mailto:chandanpanda615@gmail.com">chandanpanda615@gmail.com</a>
+    </div>
+  </div>
+</footer>
 
 <script>
 /* ============ Reveal + progress ============ */

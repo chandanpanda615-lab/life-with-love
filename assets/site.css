@@ -51,6 +51,10 @@
 
   --content-pad: clamp(1.25rem, 5vw, 3rem);
   --measure: 60ch;
+
+  /* Scrim laid over the backdrop photograph. Light by default so light-mode ink
+     has a light ground; the dark block below swaps in the near-black one. */
+  --scrim: linear-gradient(rgba(232,225,212,.55), rgba(232,225,212,.65));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,23 +65,8 @@
     --panel-border: rgba(200, 132, 43, 0.28);
     --accent: var(--turmeric);
     --band-bg: #241C15;
+    --scrim: linear-gradient(rgba(10,14,12,.86), rgba(10,14,12,.92));
   }
-}
-:root[data-theme="dark"] {
-  --text-paper: #E8E1D4;
-  --text-muted: #a89c88;
-  --panel-bg: rgba(20, 28, 40, 0.82);
-  --panel-border: rgba(200, 132, 43, 0.28);
-  --accent: var(--turmeric);
-  --band-bg: #241C15;
-}
-:root[data-theme="light"] {
-  --text-paper: #23303f;
-  --text-muted: #5a5347;
-  --panel-bg: rgba(238, 233, 220, 0.86);
-  --panel-border: rgba(139, 58, 31, 0.22);
-  --accent: var(--laterite);
-  --band-bg: var(--ash);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -102,15 +91,15 @@ body {
 /* --- Living landscape canvas --- */
 /* Page backdrop. Replaces the old drawn-hills canvas: every section below the
    header sits on a real photograph of the place, held still and pushed far back
-   so it reads as ground rather than as an image. Each page sets --page-bg. */
+   so it reads as ground rather than as an image. The photograph is attached per
+   body class at the bottom of this file; the scrim over it is --scrim. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(rgba(10,14,12,.86), rgba(10,14,12,.92)),
-    var(--page-bg, none);
+  /* The photograph itself is attached per page at the bottom of this file. */
+  background-image: var(--scrim);
   background-size: cover;
   background-position: center;
   filter: blur(3px);
@@ -157,10 +146,6 @@ p + p { margin-top: 1.4em; }
   color: var(--ash);
   /* No background here: the animated landscape canvas shows through by default. */
 }
-/* ponytail: assets/hero.jpg is cropped out of a 6-up phone collage, so it is only
-   954px wide and goes soft past ~1400px. The scrim and .grain hide most of it.
-   Upgrade path: overwrite assets/hero.jpg with a real full-resolution photograph.
-   Nothing else in the markup or CSS needs to change. */
 .hero.has-photo {
   background: url("hero.jpg") center 55% / cover no-repeat;
 }
@@ -418,46 +403,6 @@ p + p { margin-top: 1.4em; }
   display: block;
 }
 
-/* ==================== THE LAND (verse over landscape) ==================== */
-.land {
-  position: relative;
-  padding: clamp(4rem, 12vh, 9rem) var(--content-pad);
-  max-width: 68ch;
-  margin: 0 auto;
-}
-.land::before {
-  content: '';
-  position: absolute;
-  inset: -2vh -6vw;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 40% 50%, rgba(8,10,18,0.5), rgba(8,10,18,0) 75%);
-}
-.land-eyebrow {
-  font-family: var(--font-accent);
-  font-size: var(--text-lg);
-  color: var(--turmeric);
-  margin-bottom: 2.5rem;
-  display: block;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
-}
-.verse-line {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.15rem, 2.6vw, 1.55rem);
-  line-height: 1.5;
-  color: #efe8da;
-  margin-left: var(--indent, 0%);
-  padding: 0.75em 0;
-  text-shadow: 0 2px 26px rgba(0,0,0,0.82), 0 1px 3px rgba(0,0,0,0.75);
-}
-.verse-line .turmeric { color: var(--turmeric); }
-.verse-sep {
-  display: block; width: 2.2rem; height: 1px;
-  background: var(--turmeric); opacity: 0.5;
-  margin: 1rem 0 1rem var(--indent, 0%);
-}
-
 /* ==================== MANIFESTO ==================== */
 .manifesto {
   position: relative;
@@ -618,8 +563,6 @@ section[id], header[id] { scroll-margin-top: 84px; }
     max-width: 100vw;
     overflow-x: clip;
   }
-  .verse-line, .verse-sep { margin-left: 0 !important; }
-  .land { max-width: 100%; }
   .wordmark { font-size: clamp(2.6rem, 12vw, 4.2rem); }
   .site-nav { padding: 0.6rem 0.9rem; gap: 0.8rem; }
   .brand-logo { width: 32px; height: 32px; }
@@ -707,6 +650,16 @@ section[id], header[id] { scroll-margin-top: 84px; }
   margin: 0 0 2.4rem;
 }
 .guide-grid { display: grid; gap: 1.8rem; }
+.guide-item {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 3px;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  box-shadow: 0 24px 50px -30px rgba(0,0,0,0.6);
+  padding: 1.4rem 1.5rem 1.6rem;
+}
 .guide-item h3 {
   font-family: var(--font-accent);
   font-weight: 400;
@@ -714,7 +667,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
   color: var(--accent);
   margin-bottom: .35rem;
 }
-.guide-item p { max-width: var(--measure); }
+.guide-item p { max-width: var(--measure); color: var(--text-muted); }
 
 /* --- Call to action --- */
 .cta { position: relative; z-index: 1; text-align: center; }
@@ -725,7 +678,17 @@ section[id], header[id] { scroll-margin-top: 84px; }
   background: radial-gradient(ellipse at 50% 50%, rgba(10,15,25,.5), rgba(10,15,25,.1) 70%);
   z-index: -1;
 }
-.cta-inner { padding: clamp(3.5rem, 8vw, 6rem) var(--content-pad); }
+.cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(2.25rem, 6vw, 3.75rem) clamp(1.5rem, 5vw, 3rem);
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  box-shadow: 0 24px 50px -30px rgba(0,0,0,0.6);
+}
 .cta-line {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
@@ -769,7 +732,14 @@ section[id], header[id] { scroll-margin-top: 84px; }
 .gallery-header {
   max-width: 68ch;
   margin: 0 auto 2.8rem;
+  padding: clamp(1.5rem, 5vw, 2.75rem);
   text-align: center;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  box-shadow: 0 24px 50px -30px rgba(0,0,0,0.6);
 }
 .gallery-title {
   font-family: var(--font-display);
@@ -781,23 +751,42 @@ section[id], header[id] { scroll-margin-top: 84px; }
   font-size: var(--text-base);
   color: var(--text-muted);
 }
+/* Editorial mosaic. Cards claim a span instead of all being the same box, so a
+   panorama reads as a panorama and a portrait stays upright. `dense` lets the
+   browser backfill the gaps that leaves — no masonry library involved. */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.2rem;
-  max-width: 1100px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 165px;
+  grid-auto-flow: dense;
+  gap: 1rem;
+  max-width: 1180px;
   margin: 0 auto;
 }
+@media (max-width: 700px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; }
+  .photo-card--feature,
+  .photo-card--wide { grid-column: span 2; grid-row: span 2; }
+  .photo-card--tall { grid-column: span 1; grid-row: span 2; }
+  .photo-card--feature figcaption { font-size: 1.2rem; padding-top: 2.5rem; }
+}
+
 /* Caption sits over the bottom of the photo, Kerala-Tourism style. */
 .photo-card {
   position: relative;
-  aspect-ratio: 4/3;
+  grid-column: span 2;
   overflow: hidden;
   border-radius: 4px;
   background: rgba(0,0,0,0.25);
   display: flex;
   align-items: flex-end;
 }
+/* Span modifiers come after .photo-card: same specificity, so source order decides. */
+.photo-card--feature { grid-column: span 4; grid-row: span 2; }
+.photo-card--tall    { grid-column: span 2; grid-row: span 2; }
+.photo-card--wide    { grid-column: span 4; grid-row: span 1; }
+.photo-card--feature figcaption { font-size: 1.55rem; padding-top: 3.5rem; }
+
 .photo-card img {
   position: absolute;
   inset: 0;
@@ -820,6 +809,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
 /* No photo in the frame yet. Uncomment the <img> and this styling drops away
    on its own — nothing else to change. */
 .photo-card:not(:has(img)) {
+  background: var(--panel-bg);
   border: 1px dashed var(--panel-border);
   align-items: center;
   justify-content: center;
@@ -835,7 +825,14 @@ section[id], header[id] { scroll-margin-top: 84px; }
 .gallery-more {
   max-width: 1100px;
   margin: 2rem auto 0;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
   text-align: center;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  box-shadow: 0 24px 50px -30px rgba(0,0,0,0.6);
 }
 .gallery-more a {
   display: inline-flex;
@@ -923,7 +920,6 @@ section[id], header[id] { scroll-margin-top: 84px; }
   align-items: flex-end;
   overflow: hidden;
   color: var(--ash);
-  background-image: var(--head-bg);
   background-size: cover;
   background-position: center 55%;
 }
@@ -984,7 +980,6 @@ section[id], header[id] { scroll-margin-top: 84px; }
   overflow: hidden;
   color: var(--ash);
   text-decoration: none;
-  background-image: linear-gradient(to top, rgba(10,14,12,.86), rgba(10,14,12,.22)), var(--card-bg);
   background-size: cover;
   background-position: center;
   transition: transform .25s ease, box-shadow .25s ease;
@@ -1028,14 +1023,85 @@ section[id], header[id] { scroll-margin-top: 84px; }
   padding: 0 var(--content-pad) clamp(3rem, 8vw, 5rem);
 }
 
-/* Image paths live here, not in inline styles: a url() inside a custom property
-   resolves relative to the stylesheet that parsed it, so paths written in the HTML
-   came out as assets/assets/… . Relative to this file, the filename alone is right. */
-body.bg-hero { --page-bg: url('hero.jpg'); }
-body.bg-land { --page-bg: url('land.jpg'); }
-body.bg-road { --page-bg: url('road.jpg'); }
-.head-land   { --head-bg: url('land.jpg'); }
-.head-road   { --head-bg: url('road.jpg'); }
-.card-land   { --card-bg: url('land.jpg'); }
-.card-road   { --card-bg: url('road.jpg'); }
-.hero.has-photo { background-image: url('hero.jpg'); }
+/* ==================== FOOTER ====================
+   Same mechanism as .status-band: a solid --band-bg surface directly under the
+   photo, so ink and surface flip together in both themes. */
+.site-foot {
+  position: relative;
+  z-index: 1;
+  background: var(--band-bg);
+  color: var(--text-paper);
+  border-top: 1px solid var(--panel-border);
+}
+.site-foot-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 3.5rem) var(--content-pad);
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 640px) {
+  .site-foot-inner { grid-template-columns: 1fr 1fr; }
+}
+/* .brand-mark / .brand-logo hardcode ash for use over the dark hero photo;
+   here the mark sits on the footer's own themed surface, so it needs its
+   own ink instead. */
+.foot-brand .brand-mark,
+.foot-brand .brand-logo { color: var(--text-paper); }
+.foot-loc {
+  margin-top: 0.9rem;
+  max-width: 42ch;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+}
+.foot-nav a {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-paper);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.foot-nav a:hover { color: var(--accent); border-color: var(--accent); }
+.foot-disclaimer {
+  margin-top: 1.1rem;
+  max-width: 52ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.foot-mail {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-accent);
+  font-size: 1.1rem;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.foot-mail:hover { color: var(--text-paper); }
+
+/* Image paths live here, not in inline styles, so the bare filename resolves
+   next to this stylesheet.
+
+   These are written as ordinary background-image declarations on purpose. A
+   url() carried inside a custom property is NOT resolved against the stylesheet
+   that declared it — Chrome resolves it against the document, so `url('road.jpg')`
+   was fetched from the site root and 404'd on every page. That is why the
+   backdrops rendered as flat dark panels with no photograph in them.
+   The scrim stays a custom property: a gradient has no URL to resolve. */
+body.bg-hero::before { background-image: var(--scrim), url('hero.jpg'); }
+body.bg-land::before { background-image: var(--scrim), url('land.jpg'); }
+body.bg-road::before { background-image: var(--scrim), url('road.jpg'); }
+.head-land { background-image: url('land.jpg'); }
+.head-road { background-image: url('road.jpg'); }
+.card-land { background-image: linear-gradient(to top, rgba(10,14,12,.86), rgba(10,14,12,.22)), url('land.jpg'); }
+.card-road { background-image: linear-gradient(to top, rgba(10,14,12,.86), rgba(10,14,12,.22)), url('road.jpg'); }

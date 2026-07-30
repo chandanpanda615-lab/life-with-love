@@ -11,7 +11,7 @@ Originals never enter git. Only what build/ produces is committed.
 """
 import csv, os, sys, subprocess
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "_incoming"
@@ -24,6 +24,7 @@ VIDEO_EXT = {".mp4", ".mov", ".avi", ".wmv", ".mkv", ".3gp"}
 
 COLS, ROWS, THUMB = 5, 4, 380          # 20 per sheet
 WEB_MAX = 1600                          # longest edge of a published photo
+HERO_MAX = 2400                         # the one photo marked hero=yes goes bigger
 WEB_QUALITY = 82
 
 
@@ -61,6 +62,7 @@ def cmd_sheet():
             try:
                 im = Image.open(path)
                 im.draft("RGB", (THUMB * 2, THUMB * 2))   # fast JPEG downscale
+                im = ImageOps.exif_transpose(im)          # phone shots carry orientation=6
                 im = im.convert("RGB")
             except Exception as e:                        # unreadable file: leave a marker
                 im = Image.new("RGB", (THUMB, THUMB), (60, 30, 30))
@@ -89,7 +91,7 @@ def cmd_manifest():
         with MANIFEST.open(encoding="utf-8", newline="") as f:
             existing = {r["file"]: r for r in csv.DictReader(f)}
 
-    fields = ["file", "publish", "consent", "slug", "caption", "place", "when"]
+    fields = ["file", "publish", "consent", "slug", "caption", "place", "when", "hero"]
     rows = []
     for i, p in enumerate(photos):
         rel = str(p.relative_to(SRC)).replace("\\", "/")
@@ -102,6 +104,7 @@ def cmd_manifest():
             "caption": row.get("caption", ""),
             "place": row.get("place", ""),
             "when": row.get("when", ""),
+            "hero": row.get("hero", "no"),      # exactly one row says yes; it builds at HERO_MAX
         })
     with MANIFEST.open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)
@@ -127,8 +130,12 @@ def cmd_build():
         if not src.exists():
             print(f"  MISSING {r['file']}")
             continue
-        im = Image.open(src).convert("RGB")
-        im.thumbnail((WEB_MAX, WEB_MAX), Image.LANCZOS)
+        im = Image.open(src)
+        # Rotate upright while the orientation tag still exists — the repaste below
+        # drops all EXIF, so doing this afterwards would lose the tag unread.
+        im = ImageOps.exif_transpose(im).convert("RGB")
+        max_edge = HERO_MAX if r.get("hero", "").strip().lower() == "yes" else WEB_MAX
+        im.thumbnail((max_edge, max_edge), Image.LANCZOS)
         clean = Image.new("RGB", im.size)     # new image => EXIF, incl. GPS, is dropped
         clean.paste(im)
         dst = OUT / f"{r['slug']}.jpg"
