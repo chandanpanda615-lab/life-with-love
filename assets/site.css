@@ -567,9 +567,16 @@ section[id], header[id] { scroll-margin-top: 84px; }
   .site-nav { padding: 0.6rem 0.9rem; gap: 0.8rem; }
   .brand-logo { width: 32px; height: 32px; }
   .brand-mark { font-size: 1.1rem; gap: 0.5rem; }
-  .nav-links { gap: 0.9rem; }
+  /* Six items need ~418px and a 390px phone gives the strip ~316px, so it scrolls.
+     Without a cue the last link just stops mid-word and reads as a clipping bug.
+     Fade the trailing edge, and pad by the same amount so a fully scrolled strip
+     leaves the last link (the Pilot CTA) in the opaque part, not under the fade. */
+  .nav-links {
+    gap: 0.9rem;
+    padding-right: 22px;
+    mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+  }
   .nav-links a { font-size: 0.66rem; letter-spacing: 0.07em; }
-  .journey { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
   .hero-ledger { grid-template-columns: repeat(2, 1fr); }
   .ledger-item { padding-right: 1rem; }
   .ledger-item:nth-child(2n) { border-right: 0; }
@@ -602,6 +609,12 @@ section[id], header[id] { scroll-margin-top: 84px; }
   grid-template-columns: repeat(4, 1fr);
   gap: 0.9rem;
   margin: 1.7rem 0 1rem;
+}
+/* Lives here rather than in the 768px block above, which sits earlier in the file:
+   equal specificity, so the four-column rule directly above would win and did —
+   step four rendered 60px past the right edge and `overflow-x: clip` ate it. */
+@media (max-width: 768px) {
+  .journey { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
 }
 .journey-step {
   background: var(--panel-bg);
@@ -763,13 +776,6 @@ section[id], header[id] { scroll-margin-top: 84px; }
   max-width: 1180px;
   margin: 0 auto;
 }
-@media (max-width: 700px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; }
-  .photo-card--feature,
-  .photo-card--wide { grid-column: span 2; grid-row: span 2; }
-  .photo-card--tall { grid-column: span 1; grid-row: span 2; }
-  .photo-card--feature figcaption { font-size: 1.2rem; padding-top: 2.5rem; }
-}
 
 /* Caption sits over the bottom of the photo, Kerala-Tourism style. */
 .photo-card {
@@ -786,6 +792,19 @@ section[id], header[id] { scroll-margin-top: 84px; }
 .photo-card--tall    { grid-column: span 2; grid-row: span 2; }
 .photo-card--wide    { grid-column: span 4; grid-row: span 1; }
 .photo-card--feature figcaption { font-size: 1.55rem; padding-top: 3.5rem; }
+
+/* Must sit AFTER the span modifiers above, for the same source-order reason: the
+   modifiers are one class each, so an equal-specificity rule earlier in the file
+   loses. When this block was above them, a --feature card still claimed span 4 in
+   a 2-column grid, which forced two implicit columns and squeezed the plain cards
+   into 100px slivers with one word per caption line. */
+@media (max-width: 700px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; }
+  .photo-card--feature,
+  .photo-card--wide { grid-column: span 2; grid-row: span 2; }
+  .photo-card--tall { grid-column: span 1; grid-row: span 2; }
+  .photo-card--feature figcaption { font-size: 1.2rem; padding-top: 2.5rem; }
+}
 
 .photo-card img {
   position: absolute;
@@ -1088,6 +1107,279 @@ section[id], header[id] { scroll-margin-top: 84px; }
   transition: color 0.2s ease;
 }
 .foot-mail:hover { color: var(--text-paper); }
+
+/* ============ Lightbox ============
+   A native <dialog> built by assets/lightbox.js. Esc, the backdrop and the focus
+   trap come from the element itself, so there is nothing here but appearance. */
+.gallery-grid .photo-card { cursor: zoom-in; }
+.gallery-grid .photo-card:focus-visible {
+  outline: 2px solid var(--turmeric);
+  outline-offset: 3px;
+}
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+.lightbox::backdrop { background: rgba(6, 8, 12, 0.94); }
+.lb-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* `safe`, not plain `center`: on a phone a portrait photo plus its caption is
+     taller than this box, and centred overflow spills past BOTH ends — the image
+     rode up under .lb-close and the corner of the photograph swallowed it. Safe
+     centring falls back to flex-start once it overflows, so the top padding that
+     reserves room for the close button is always honoured. */
+  justify-content: safe center;
+  gap: 0.9rem;
+  height: 100%;
+  margin: 0;
+  /* Top padding must clear .lb-close, which ends at 1rem + 2.75rem = 3.75rem.
+     At the old 3.2rem a portrait photograph ran under the button. */
+  padding: 4.25rem 1rem;
+  pointer-events: none;    /* clicks fall through to the dialog, which closes it */
+}
+.lb-frame img {
+  max-width: min(96vw, 1600px);
+  max-height: 82dvh;
+  object-fit: contain;
+  border-radius: 3px;
+  pointer-events: auto;
+}
+.lb-frame figcaption {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #f5efe4;
+  text-align: center;
+}
+.lb-close, .lb-nav {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 239, 228, 0.22);
+  border-radius: 50%;
+  background: rgba(8, 10, 18, 0.55);
+  color: #f5efe4;
+  cursor: pointer;
+  line-height: 1;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.lb-close:hover, .lb-nav:hover {
+  border-color: var(--turmeric);
+  background: rgba(8, 10, 18, 0.85);
+}
+.lb-close { top: 1rem; right: 1rem; width: 2.75rem; height: 2.75rem; font-size: 1.5rem; }
+.lb-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  font-size: 2rem;
+  padding-bottom: 0.2rem;
+}
+.lb-prev { left: 1rem; }
+.lb-next { right: 1rem; }
+/* On a phone the arrows would sit on top of the photograph. Put them under it. */
+@media (max-width: 560px) {
+  .lb-nav { top: auto; bottom: 1.1rem; transform: none; }
+  .lb-prev { left: 25%; }
+  .lb-next { right: 25%; }
+  .lb-frame { padding: 4.25rem 0.5rem 5.5rem; }
+  /* 82dvh ignores this frame's own padding (4.25 + 5.5rem) plus the gaps, the
+     caption and the "also" line, so a portrait photo pushed the caption down into
+     the arrow row. 15.5rem is that furniture; subtract it and the stack fits.
+     If .lb-close or the arrow row changes size, this number has to follow. */
+  .lb-frame img { max-height: calc(100dvh - 15.5rem); }
+  /* One line only down here — three related captions wrapping would eat the photo. */
+  .lb-also { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+}
+
+/* The photograph slides in from the side it came from, so a swipe has a direction
+   and the set feels like a set rather than a slideshow of unrelated frames. */
+@keyframes lb-slide-from-right { from { opacity: 0; transform: translateX(4%); } }
+@keyframes lb-slide-from-left  { from { opacity: 0; transform: translateX(-4%); } }
+.lb-frame img.lb-in-right { animation: lb-slide-from-right 0.22s ease-out; }
+.lb-frame img.lb-in-left  { animation: lb-slide-from-left  0.22s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .lb-frame img.lb-in-right, .lb-frame img.lb-in-left { animation: none; }
+}
+
+/* "also: <caption> · <caption>" under the open photograph — the other frames that
+   share a tag with it. Buttons, not links: they move the lightbox, not the page. */
+.lb-also {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  pointer-events: auto;
+}
+.lb-also:empty { display: none; }
+.lb-also button {
+  padding: 0.35rem 0.15rem;      /* vertical padding keeps the tap target usable */
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--turmeric);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lb-also button:hover { color: #f5efe4; }
+
+/* ============ Footer social ============
+   Icons are drawn inline so they inherit currentColor and flip with the theme —
+   no icon font, no sprite, nothing to fetch. */
+.foot-social {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+.foot-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;                   /* a link this small is a touch target first */
+  height: 44px;
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.foot-social a:hover { color: var(--accent); border-color: var(--accent); }
+.foot-social svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Shapes that read better filled than outlined at 20px. */
+.foot-social svg .solid,
+.foot-social svg .dot { fill: currentColor; stroke: none; }
+
+/* The hidden attribute is only `display: none` in the UA stylesheet, so any author
+   `display` beats it — and .photo-card sets display:flex. A filtered-out photograph
+   therefore stayed on screen while the count said it had gone. Restate it here. */
+.photo-card[hidden],
+.album[hidden],
+.gallery-wrap[hidden] { display: none; }
+
+/* ============ Albums ============
+   Each set is a <details>. Closed, the page is seven covers and nothing to scroll
+   past; open, one album's grid appears under its own cover. No JavaScript involved —
+   the element does the work, and it stays keyboard-operable for free. */
+.album {
+  max-width: 1180px;
+  margin: 0 auto 1rem;
+  padding: 0 1rem;
+}
+.album-cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  min-height: 210px;
+  padding: 1.4rem 3.5rem 1.3rem 1.4rem;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  list-style: none;              /* Firefox draws a marker without this */
+  transition: transform 0.3s ease;
+}
+.album-cover::-webkit-details-marker { display: none; }
+.album-cover:hover { transform: translateY(-2px); }
+.album-cover:focus-visible { outline: 2px solid var(--turmeric); outline-offset: 3px; }
+.album-eyebrow {
+  font-family: var(--font-accent);
+  font-size: 1rem;
+  color: var(--turmeric);
+}
+.album-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  line-height: 1.1;
+  color: #f5efe4;
+}
+.album-sub {
+  max-width: 52ch;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(245, 239, 228, 0.72);
+}
+/* A chevron that turns when the album opens, so the cover reads as a control. */
+.album-cue {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(245, 239, 228, 0.3);
+  border-radius: 50%;
+  background: rgba(8, 10, 18, 0.5);
+  transition: transform 0.3s ease, border-color 0.2s ease;
+}
+.album-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid #f5efe4;
+  border-bottom: 2px solid #f5efe4;
+  transform: translateY(-20%) rotate(45deg);
+}
+.album[open] .album-cue { transform: rotate(180deg); }
+.album-cover:hover .album-cue { border-color: var(--turmeric); }
+.album[open] .gallery-grid { margin-top: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .album-cover, .album-cue { transition: none; }
+}
+
+/* ============ Tag bar ============
+   Chips above the archive. Each is a plain link to ?tag=…, so it works with
+   JavaScript off — the page just does not filter. */
+.tag-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 1180px;
+  margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+  padding: 0 1rem;
+}
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;              /* a chip is a touch target before it is a label */
+  padding: 0 0.85rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: var(--panel-bg);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.tag-chip small { opacity: 0.6; font-size: 0.72rem; }
+.tag-chip:hover { border-color: var(--accent); color: var(--text-paper); }
+.tag-chip.is-on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 /* Image paths live here, not in inline styles, so the bare filename resolves
    next to this stylesheet.

@@ -5,8 +5,11 @@ __pycache__/
 
 
 # Photo intake: originals stay out of git. Only assets/photos/ (built) is committed.
-# Village_Image/ is a scratch area for originals — all of it stays local.
-_incoming/
+# manifest.csv is the exception — it is the source of every caption, consent record
+# and gallery position, and tools/photos.py render regenerates the pages from it.
+# Losing it with the originals would lose all of that. It carries no image data.
+_incoming/*
+!_incoming/manifest.csv
 Village_Image/
 tools/realesrgan/
 
