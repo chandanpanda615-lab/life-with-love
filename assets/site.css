@@ -465,6 +465,17 @@ p + p { margin-top: 1.4em; }
   text-shadow: 0 2px 20px rgba(0,0,0,0.85);
 }
 
+/* The photographer's name, under the caption. Quiet, but never absent when the
+   manifest carries one — other people in the village shoot for this now. */
+.photo-card figcaption .credit {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+.photo-card figcaption .credit::before { content: "Photograph: "; }
+
 /* ==================== REVEAL ==================== */
 /* Gated on .js, set by a one-line inline script in <head>. Without that gate the
    page hides its own content by default and only JavaScript can bring it back —

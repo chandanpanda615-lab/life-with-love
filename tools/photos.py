@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "_incoming"
 SHEETS = SRC / "_sheets"
 OUT = ROOT / "assets" / "photos"
+COVERS = ROOT / "assets" / "covers"
 MANIFEST = SRC / "manifest.csv"
 
 PHOTO_EXT = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
@@ -28,9 +29,15 @@ COLS, ROWS, THUMB = 5, 4, 380          # 20 per sheet
 WEB_MAX = 1600                          # longest edge of a published photo
 HERO_MAX = 2400                         # the one photo marked hero=yes goes bigger
 WEB_QUALITY = 82
+# An album cover is a banner about 210px tall that every visitor downloads before
+# they have opened anything. Serving the full 1600px gallery photo for that meant
+# seven covers weighed 2.2 MB and pushed LCP to 11s on a slow connection. The cover
+# is a separate, smaller derivative for exactly that reason.
+COVER_MAX = 1000
+COVER_QUALITY = 68
 
-FIELDS = ["file", "publish", "consent", "people", "slug", "caption", "alt", "place", "when",
-          "group", "span", "cover", "hero", "tags", "notes"]
+FIELDS = ["file", "publish", "consent", "people", "by", "slug", "caption", "alt", "place",
+          "when", "group", "span", "cover", "hero", "tags", "notes"]
 
 # Section order on photographs.html. A group named in the manifest but missing here
 # lands in "rest" at the end, so a typo loses the section heading, never the photo.
@@ -127,6 +134,10 @@ def cmd_manifest():
             "publish": row.get("publish", "no"),
             "consent": row.get("consent", ""),      # who agreed, if a person is in it
             "people": row.get("people", ""),        # yes if anyone is identifiable in it
+            # Who took it. Blank means Chandan. Once other people in the village are
+            # shooting for this, the credit has to live with the photograph — not in
+            # somebody's memory, and never cropped off a corner.
+            "by": row.get("by", ""),
             "slug": row.get("slug", f"photo-{i:03d}"),
             "caption": row.get("caption", ""),
             "alt": row.get("alt", ""),          # falls back to caption when left blank
@@ -186,12 +197,14 @@ def cmd_build():
         im.thumbnail((max_edge, max_edge), Image.LANCZOS)
         clean = Image.new("RGB", im.size)     # new image => EXIF, incl. GPS, is dropped
         clean.paste(im)
-        dst = OUT / f"{r['slug']}.jpg"
+        # dst was already decided above — a blank group sends the file to assets/ as a
+        # page backdrop. Recomputing it here as OUT sent hero.jpg to assets/photos/.
         clean.save(dst, quality=WEB_QUALITY, optimize=True, progressive=True)
         kb = dst.stat().st_size / 1024
         total += kb
         print(f"  {dst.name:28s} {im.width}x{im.height}  {kb:6.0f} KB")
     print(f"\n{len(rows)} photos -> {OUT.relative_to(ROOT)}, {total/1024:.1f} MB total")
+    build_covers(rows)
     print("These are the only image files that belong in a commit.")
 
 
@@ -236,6 +249,48 @@ def tidy_tags(raw):
     return ",".join(out)
 
 
+def cover_picks(rows):
+    """{group key: row} — the photograph that fronts each album. cover=yes wins,
+    otherwise the first in the set. build writes a small derivative for exactly
+    these and render points the covers at them, so the two must not drift."""
+    known = {g for g, _, _ in GROUPS}
+    gallery = [r for r in rows if r.get("group", "").strip()]
+    picks = {}
+    for key, _, _ in GROUPS:
+        if key == "rest":
+            batch = [r for r in gallery if r.get("group", "").strip().lower() not in known]
+        else:
+            batch = [r for r in gallery if r.get("group", "").strip().lower() == key]
+        if batch:
+            picks[key] = next(
+                (r for r in batch if r.get("cover", "").strip().lower() == "yes"), batch[0])
+    return picks
+
+
+def build_covers(rows):
+    """Small banner versions of the album covers. Every visitor downloads these
+    before opening anything, so they are the one set of images that has to be
+    cheap."""
+    COVERS.mkdir(parents=True, exist_ok=True)
+    made = total = 0
+    for r in cover_picks(rows).values():
+        src = OUT / f"{r['slug']}.jpg"
+        if not src.exists():
+            continue
+        dst = COVERS / f"{r['slug']}.jpg"
+        if dst.exists() and dst.stat().st_mtime >= src.stat().st_mtime:
+            total += dst.stat().st_size / 1024
+            continue
+        im = Image.open(src)
+        im.thumbnail((COVER_MAX, COVER_MAX), Image.LANCZOS)
+        im.save(dst, quality=COVER_QUALITY, optimize=True, progressive=True)
+        kb = dst.stat().st_size / 1024
+        total += kb
+        made += 1
+        print(f"  cover  {dst.name:24s} {im.width}x{im.height}  {kb:6.0f} KB")
+    print(f"  {len(cover_picks(rows))} covers, {total:.0f} KB total ({made} rebuilt)")
+
+
 def figure(r, i):
     """One gallery cell. width/height come off the built file: without them a
     hundred lazy images collapse the page height and every scroll jumps."""
@@ -247,6 +302,8 @@ def figure(r, i):
     cls = "photo-card" + (f" photo-card--{span}" if span in {"feature", "tall", "wide"} else "")
     cap = html.escape(r.get("caption", "").strip())
     alt = html.escape((r.get("alt") or r.get("caption", "")).strip())
+    by = html.escape(r.get("by", "").strip())
+    credit = f'<small class="credit">{by}</small>' if by else ""
     delay = min(0.06 + i * 0.04, 0.34)      # stagger the first few, then stop waiting
     tags = html.escape(tidy_tags(r.get("tags", "")))
     # The id makes every photograph addressable — photographs.html#school-meal opens
@@ -257,7 +314,7 @@ def figure(r, i):
         f'              tabindex="0" role="button" aria-label="Open photograph: {cap}">\n'
         f'        <img src="assets/photos/{r["slug"]}.jpg" alt="{alt}"\n'
         f'             width="{w}" height="{h}" loading="lazy" decoding="async">\n'
-        f'        <figcaption>{cap}</figcaption>\n'
+        f'        <figcaption>{cap}{credit}</figcaption>\n'
         f'      </figure>'
     )
 
@@ -269,6 +326,7 @@ def cmd_render():
 
     # --- photographs.html: every published photo, in labelled sections -------------
     known = {g for g, _, _ in GROUPS}
+    picks = cover_picks(rows)
     sections = []
     album_index = []          # (key, title, count) for the bar at the top of the page
     for key, title, blurb in GROUPS:
@@ -279,17 +337,17 @@ def cmd_render():
         if not batch:
             continue
         cells = "\n".join(figure(r, i) for i, r in enumerate(batch))
-        # The album's cover: whichever row says cover=yes, else the first photograph
-        # in the set. A closed <details> is the whole point — the page is seven covers
-        # until something is opened, so there is nothing to scroll past.
-        pick = next((r for r in batch if r.get("cover", "").strip().lower() == "yes"), batch[0])
+        # A closed <details> is the whole point — the page is seven covers until
+        # something is opened, so there is nothing to scroll past. The cover image is
+        # the small derivative from assets/covers/, not the full gallery photo.
+        pick = picks[key]
         n = len(batch)
         album_index.append((key, title, n))
         sections.append(
             f'  <details class="album" id="{key}">\n'
             f'    <summary class="album-cover" style="background-image:'
             f'linear-gradient(to top, rgba(8,10,18,.88), rgba(8,10,18,.25)),'
-            f'url(assets/photos/{pick["slug"]}.jpg)">\n'
+            f'url(assets/covers/{pick["slug"]}.jpg)">\n'
             f'      <span class="album-eyebrow">{n} photograph{"s" if n != 1 else ""}</span>\n'
             f'      <span class="album-title">{title}</span>\n'
             f'      <span class="album-sub">{blurb}</span>\n'
