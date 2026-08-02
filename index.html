@@ -19,6 +19,7 @@
 <meta name="twitter:title" content="Maati Katha — The Weight of Belonging">
 <meta name="twitter:description" content="A seven-day life-exchange in Sarangada, Kandhamal, Odisha. No fake experiences. Just life as it is.">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/chandanpanda615-lab/life-with-love/main/assets/hero.jpg">
+<script>document.documentElement.className+=' js'</script>
 <link rel="stylesheet" href="assets/site.css">
 <body class="bg-hero">
 <div class="grain" aria-hidden="true"></div>
@@ -177,9 +178,30 @@
 /* ============ Reveal + progress ============ */
 (function () {
   var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.18, rootMargin: '0px 0px -50px 0px' });
+    entries.forEach(function (e) {
+      // top < 0 catches anything already scrolled past. An anchor such as
+      // photographs.html#school-meal jumps straight down the page, and every
+      // element above it would otherwise never intersect and stay invisible.
+      if (e.isIntersecting || e.boundingClientRect.top < 0) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+
+  // An anchor such as photographs.html#school-meal jumps the page before the
+  // observer's first entries land, so everything above the landing point never
+  // changes intersection state and would stay invisible for good. Sweep once,
+  // after the jump has settled.
+  addEventListener('load', function () {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      if (el.getBoundingClientRect().top < innerHeight) {
+        el.classList.add('visible');
+        obs.unobserve(el);
+      }
+    });
+  });
 
   var bar = document.querySelector('.progress-bar');
   var nav = document.querySelector('.site-nav');

@@ -80,7 +80,9 @@ def test_consent_guard_allows_a_photo_with_nobody_in_it():
 
 def test_render_is_idempotent_on_the_real_files():
     """The check that matters most: run render twice, nothing may change."""
-    targets = [photos.ROOT / n for n in ("land.html", "photographs.html", "PHOTOS.md")]
+    targets = [photos.ROOT / n for n in ("land.html", "photographs.html")]
+    targets += [p for p in (photos.ROOT / "docs" / "PHOTOS.md",
+                            photos.ROOT / "PHOTOS.md") if p.exists()]
 
     def render():
         r = subprocess.run([sys.executable, str(Path(__file__).parent / "photos.py"), "render"],
