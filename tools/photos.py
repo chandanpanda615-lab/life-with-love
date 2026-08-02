@@ -12,7 +12,6 @@ Originals never enter git. Only what build/ produces is committed — plus manif
 which is the one file carrying every caption and consent record.
 """
 import csv, html, os, re, sys, subprocess, tempfile
-from urllib.parse import quote
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageOps
 
@@ -271,6 +270,7 @@ def cmd_render():
     # --- photographs.html: every published photo, in labelled sections -------------
     known = {g for g, _, _ in GROUPS}
     sections = []
+    album_index = []          # (key, title, count) for the bar at the top of the page
     for key, title, blurb in GROUPS:
         if key == "rest":
             batch = [r for r in rows if r.get("group", "").strip().lower() not in known]
@@ -284,6 +284,7 @@ def cmd_render():
         # until something is opened, so there is nothing to scroll past.
         pick = next((r for r in batch if r.get("cover", "").strip().lower() == "yes"), batch[0])
         n = len(batch)
+        album_index.append((key, title, n))
         sections.append(
             f'  <details class="album" id="{key}">\n'
             f'    <summary class="album-cover" style="background-image:'
@@ -297,22 +298,20 @@ def cmd_render():
             f'    <div class="gallery-grid inner">\n{cells}\n    </div>\n'
             f'  </details>'
         )
-    # A tag bar, so the ?tag= filter is discoverable instead of a secret. Counted and
-    # sorted by how many photographs carry each tag — the useful ones float up.
-    counts = {}
-    for r in rows:
-        for t in tidy_tags(r.get("tags", "")).split(","):
-            if t:
-                counts[t] = counts.get(t, 0) + 1
-    # Only the tags that group something. A bar of thirty one-photo tags is a wall,
-    # not a filter — the long tail stays in the manifest and still works as ?tag=.
-    ranked = [kv for kv in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])) if kv[1] > 1][:14]
+    # The bar names the albums, not the tags. It listed tags until "red earth",
+    # "indoors" and "monsoon" ended up sitting directly above "The land" — two
+    # different ways of cutting the same 29 photographs, stacked on top of each
+    # other. Naming the albums makes the bar a table of contents: one entry per
+    # set below it, and clicking an entry opens that set.
+    #
+    # href is a real "#key" fragment so it still jumps with JavaScript off; the
+    # opening is done in gallery.js, which is also what closes the other albums.
     chips = "".join(
-        f'      <a class="tag-chip" href="?tag={quote(t)}" data-tag="{html.escape(t)}">'
-        f'{html.escape(t)} <small>{n}</small></a>\n' for t, n in ranked)
-    tagbar = ('  <nav class="tag-bar inner reveal" aria-label="Filter photographs by tag">\n'
-              '      <a class="tag-chip tag-all is-on" href="?" data-tag="">everything '
-              f'<small>{len(rows)}</small></a>\n{chips}  </nav>') if ranked else ""
+        f'      <a class="tag-chip" href="#{key}" data-album="{key}">'
+        f'{html.escape(title)} <small>{n}</small></a>\n' for key, title, n in album_index)
+    tagbar = ('  <nav class="tag-bar inner reveal" aria-label="Jump to an album">\n'
+              '      <a class="tag-chip tag-all is-on" href="#" data-album="">everything '
+              f'<small>{len(rows)}</small></a>\n{chips}  </nav>') if album_index else ""
 
     archive = ROOT / "photographs.html"
     text = archive.read_text(encoding="utf-8")

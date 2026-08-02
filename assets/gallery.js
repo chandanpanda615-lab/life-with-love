@@ -44,6 +44,49 @@
       c.classList.toggle('is-on', c.getAttribute('data-tag') === active);
     });
   }
+  /* ---------- album bar ---------------------------------------------------------
+     Each chip names one album below and opens it, closing the others, so the page
+     stays one album long instead of seven. "everything" shuts them all and gives
+     the seven covers back — that is the page's resting state, not a wall of 29
+     photographs. Runs before the lightbox sets up, so the bar still works on a
+     browser with no <dialog>. */
+  var chips = [].slice.call(document.querySelectorAll('.tag-chip[data-album]'));
+  var albums = [].slice.call(document.querySelectorAll('.album'));
+  if (chips.length && albums.length) {
+    // One function for both the click and the URL, so they cannot drift apart.
+    // Clicking and arriving at #school have to leave the page in the same state.
+    function showAlbum(key) {
+      var chip = chips.filter(function (c) {
+        return c.getAttribute('data-album') === (key || '');
+      })[0];
+      // A photograph deep-link such as #school-meal is not an album. The lightbox
+      // code further down handles it; this must not shut the album it opens.
+      if (key && !chip) return null;
+      var target = key ? document.getElementById(key) : null;
+      albums.forEach(function (a) { a.open = a === target; });
+      chips.forEach(function (c) { c.classList.toggle('is-on', c === chip); });
+      return target;
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function (e) {
+        e.preventDefault();
+        var key = chip.getAttribute('data-album');
+        var target = showAlbum(key);
+        // Scrolling to the album is what makes the tap feel like it did something
+        // on a phone, where the album itself starts below the fold.
+        (target || document.querySelector('.tag-bar')).scrollIntoView({ block: 'start' });
+        history.replaceState(null, '', key ? '#' + key : location.pathname);
+      });
+    });
+
+    // On load, and on hashchange — moving to #market from this same page is a
+    // fragment navigation, so the script never runs again. Without this the back
+    // button changes the URL and nothing else.
+    showAlbum(location.hash.slice(1));
+    addEventListener('hashchange', function () { showAlbum(location.hash.slice(1)); });
+  }
+
   if (!figures.length || !window.HTMLDialogElement) return;
 
   /* ---------- lightbox --------------------------------------------------------- */
