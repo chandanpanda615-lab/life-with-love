@@ -33,8 +33,13 @@ photographs — they carry a blank `group` in the manifest and so do not appear 
 | pandal | Inside the festival pandal | Sarangada · Jan 2025 | Inside a decorated pandal — pink and yellow cloth, a latticed ceiling, balloons, a seated crowd facing a stage. Consent: held. |
 | thali | Rice, dal and greens | Sarangada · Jan 2025 | Looking down at a meal. Rice, a dal, a dry green, a fish, a small bowl of something red. Steel and a patterned floor. Good for the "food is plain and there is a lot of it" post. |
 | bikes-paddy | Bikes at the edge of the paddy | Sarangada · July 2025 | Motorcycles and a bicycle parked on red mud at the edge of a bright green field, water tank behind. |
+| cattle-hill | Cattle out below the hill, paddy turning | Oct 2025 |  |
+| lotus-tank | Lily pads to the far bank | Oct 2025 |  |
 | mist-hills | Mist on the Eastern Ghats | Kandhamal · Sep 2025 | Cloud sitting halfway down forested hills, everything wet and grey-green. Shot from the road. This is what the drive in looks like in monsoon. Video frame. |
 | paddy-green | Paddy after the rain | Kandhamal · Oct 2025 | Deep green paddy and scrub, hills behind under wet cloud. Video frame. |
+| paddy-plain | The whole plain under one cloud | Sep 2025 |  |
+| paddy-rays | Sun through the cloud, over flooded paddy | Jun 2025 |  |
+| ridge-sun | The sun going down behind the ridge | Sep 2025 |  |
 | road-ghats | The road climbing west | Kandhamal · Oct 2025 | An empty road curving away under a big tree, hills beyond. The last stretch in. Video frame, portrait. |
 | terraces | Paddy terraced into the hillside | Kandhamal · Oct 2025 | Bright green paddy stepped up a slope, earthen bunds holding water between the steps. Banana and palm along the top edge. This is the shape of farming here — the hill decides the field, not the other way round. Video frame. |
 | market-hills | Market road, hills behind | Sarangada · Jan 2025 | The market strip — shopfronts, parked bikes, a hill rising directly behind the roofline. Two men in the foreground walking away. Consent: held. |
@@ -53,11 +58,19 @@ photographs — they carry a blank `group` in the manifest and so do not appear 
 | school-outside | Outside, in the winter light | Sarangada | Nine boys crowded into a pose on the paving outside. Winter light, hard shadows, a yellow hooded sweater on one of them. The student helpline number painted on the school wall is in the frame — leave it, it is part of what the building says. December 2025. Consent: held — school and families, confirmed by Chandan, 31 Jul 2026. |
 | school-selfie | Everyone wants to be in it | Sarangada | Every child within twenty metres arrived the moment the phone came out. Hands up, peace signs, one climbing on the bench. Not all of them are in uniform — some are younger siblings who came along. April 2026. Consent: held — school and families, confirmed by Chandan, 31 Jul 2026. |
 | school-walk | Walking back with the school | Sarangada | Walking the road with the school strung out behind. A teal-painted building, wires overhead, hills flattening into haze. A thumbs up from one boy, a girl in a yellow headscarf, a small tricolour in someone's hand at the right. Winter light. Consent: held — school and families, confirmed by Chandan, 31 Jul 2026. |
+| bike-dusk | The bike left on the ridge track at dusk | May 2025 |  |
+| bike-dusk-2 | Same ridge, a minute later | May 2025 |  |
 | fire-night | The fire after dark | Sarangada · Jan 2025 | Four people standing around an open fire at night, one seated on a plastic stool on a phone. Firelight only. Use this one for a post about evenings — there is no wifi after seven and nobody minds. Consent: held. |
 | football-wide | The whole village at the football ground | Sarangada · Oct 2024 | A wide panorama, 8096px original. Match in progress on red earth, spectators lining the far edge, goalpost with a yellow net at left. Two heads in the foreground, watching. Consent: held. |
 | ground-red | Red earth, before the match | Sarangada · Oct 2024 | The empty football ground, red earth in the foreground, tree line and low buildings behind. Wide, quiet. |
+| house-door | A door in a mud wall, and the dates chalked beside it | Oct 2025 | Chalk on the wall reads as dates. Ask whose house this is. |
 | road-sunset | Sunset over the village road | Sarangada · Oct 2024 | Sun going down the length of the road, houses either side, wires overhead, a parked white car. |
+| roofs-dusk | Sun going down behind the roofs | Jun 2026 | Photographer not stamped on the file - needs a name. |
+| sunset-wires | Orange over the wires | 25 Jun 2026 | Arrived as a letterboxed screenshot with a Meta AI badge in the padding. Cropped to the photograph itself. Ask Ananta for the camera original. |
+| sunset-wires-2 | A minute later, same sky | 25 Jun 2026 | Same letterboxed screenshot problem as sunset-wires. Cropped to the photograph. Ask Ananta for the original. |
+| tank-railing | The tank, and the railings someone painted | Aug 2025 | Two people sit on the far walkway, too small to identify. |
 | water-tower | The water tower at dusk | Sarangada · May 2024 | The concrete water tower against an orange evening sky, a motorcycle on the road below, shopfronts down the right. |
+| yard-monsoon | What the monsoon does to a yard in a fortnight | Oct 2025 |  |
 | women-earth | Sorting the harvest on bare earth | Sarangada · Jan 2025 | Four women sitting on bare packed earth outside a mud-walled house, sorting into baskets and sacks. Firewood stacked behind. Midday, hard shadows. The strongest photograph in the set for showing work rather than scenery. Consent: held. |
 
 <!-- GALLERY:END -->

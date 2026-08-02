@@ -37,7 +37,7 @@ COVER_MAX = 1000
 COVER_QUALITY = 68
 
 FIELDS = ["file", "publish", "consent", "people", "by", "slug", "caption", "alt", "place",
-          "when", "group", "span", "cover", "hero", "tags", "notes"]
+          "when", "group", "span", "cover", "hero", "crop", "tags", "notes"]
 
 # Section order on photographs.html. A group named in the manifest but missing here
 # lands in "rest" at the end, so a typo loses the section heading, never the photo.
@@ -147,6 +147,7 @@ def cmd_manifest():
             "span": row.get("span", ""),        # feature | tall | wide, or blank for a plain cell
             "cover": row.get("cover", ""),      # yes = this photo is the album's cover
             "hero": row.get("hero", "no"),      # exactly one row says yes; it builds at HERO_MAX
+            "crop": row.get("crop", ""),        # see parse_crop: "4%" or "l,t,r,b", blank = none
             "tags": row.get("tags", ""),        # comma separated; drives ?tag= and "also"
             "notes": row.get("notes", ""),      # the long description, raw material for posts
         })
@@ -162,6 +163,38 @@ def cmd_manifest():
     kept = sum(1 for r in rows if r["publish"].strip().lower() == "yes")
     print(f"{MANIFEST.relative_to(ROOT)}: {len(rows)} rows, {kept} marked publish=yes")
     print("Edit it, set publish=yes on the ones you want, then run: python tools/photos.py build")
+
+
+def parse_crop(value, size):
+    """A `crop` cell -> a PIL box, or None. Originals are never edited; the crop is
+    recorded here so the same build runs again on a clean checkout.
+
+    Two forms, because there are two problems:
+      "4%"              trim that much off the bottom. Several friends' cameras burn
+                        "MR DEBENDRA <date>" into the bottom edge. The depth is not a
+                        constant fraction across phones, so it is measured per photo.
+      "0,657,1080,1195" an explicit left,top,right,bottom box. The two sunsets Ananta
+                        sent are letterboxed screenshots — the photograph is a band in
+                        the middle and the padding carries a Meta AI badge.
+    """
+    value = (value or "").strip()
+    if not value:
+        return None
+    w, h = size
+    if value.endswith("%"):
+        pct = float(value[:-1])
+        if not 0 < pct < 50:
+            raise ValueError(f"crop {value!r}: percentage must be between 0 and 50")
+        return (0, 0, w, h - int(round(h * pct / 100)))
+    parts = [int(n) for n in value.split(",")]
+    if len(parts) != 4:
+        raise ValueError(f"crop {value!r}: want '<pct>%' or 'left,top,right,bottom'")
+    left, top, right, bottom = parts
+    # A typo here silently produces a sliver or an empty image, and the only place it
+    # would show up is the live site. Fail on the spot instead.
+    if not (0 <= left < right <= w and 0 <= top < bottom <= h):
+        raise ValueError(f"crop {value!r}: box outside the {w}x{h} original")
+    return (left, top, right, bottom)
 
 
 def cmd_build():
@@ -193,6 +226,14 @@ def cmd_build():
         # Rotate upright while the orientation tag still exists — the repaste below
         # drops all EXIF, so doing this afterwards would lose the tag unread.
         im = ImageOps.exif_transpose(im).convert("RGB")
+        # Crop before the resize, so the number in the manifest means original pixels
+        # and stays correct if WEB_MAX ever changes.
+        try:
+            box = parse_crop(r.get("crop", ""), im.size)
+        except ValueError as e:
+            sys.exit(f"{r['file']}: {e}")
+        if box:
+            im = im.crop(box)
         max_edge = HERO_MAX if r.get("hero", "").strip().lower() == "yes" else WEB_MAX
         im.thumbnail((max_edge, max_edge), Image.LANCZOS)
         clean = Image.new("RGB", im.size)     # new image => EXIF, incl. GPS, is dropped
