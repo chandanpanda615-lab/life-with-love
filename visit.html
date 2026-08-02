@@ -34,7 +34,13 @@
     </svg>
     <span>Maati Katha</span>
   </a>
-  <div class="nav-links">
+  <!-- Shown only when JS is on (.js is set in <head>). Without JS the strip below
+       stays exactly as it was — a scrolling row — so the nav never depends on this. -->
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links"
+          aria-label="Open menu">
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="land.html">The land</a>
     <a href="photographs.html">Moments</a>
@@ -246,6 +252,43 @@
     bar.style.width = (pct * 100) + '%';
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
+
+  /* ---- Mobile menu ----
+     Six nav items need ~418px and a 390px phone gives the strip ~316px, so the
+     Pilot link sat off the edge. The button is invisible without .js, so this is
+     the only thing that can open the panel — there is no CSS-only state to
+     drift out of sync with aria-expanded. */
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (toggle && links) {
+    var setMenu = function (open) {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      links.classList.toggle('open', open);
+    };
+    toggle.addEventListener('click', function () {
+      setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    // A same-page anchor does not reload, so without this the panel stays open
+    // over the section it just jumped to.
+    links.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (nav && !nav.contains(e.target)) setMenu(false);
+    });
+    // Rotating to landscape crosses the breakpoint; the panel would otherwise be
+    // left open as a stray block under a nav that is no longer collapsed.
+    addEventListener('resize', function () {
+      if (innerWidth > 768) setMenu(false);
+    }, { passive: true });
+  }
 })();
 </script>
 

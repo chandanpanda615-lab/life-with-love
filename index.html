@@ -34,7 +34,13 @@
     </svg>
     <span>Maati Katha</span>
   </a>
-  <div class="nav-links">
+  <!-- Shown only when JS is on (.js is set in <head>). Without JS the strip below
+       stays exactly as it was — a scrolling row — so the nav never depends on this. -->
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links"
+          aria-label="Open menu">
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="index.html" aria-current="page">Home</a>
     <a href="land.html">The land</a>
     <a href="photographs.html">Moments</a>
@@ -108,6 +114,58 @@
         <h3>How to reach</h3>
         <p>The route from Bhubaneswar, what a week costs, and where the pilot currently stands.</p>
         <span class="go">Open &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- FILMSTRIP — a door into the archive. Native scroll-snap: swipe, drag and
+       keyboard scrolling all come free from the browser, so there is no JS here. -->
+  <section class="strip" aria-labelledby="strip-h">
+    <div class="strip-head">
+      <h2 id="strip-h" class="eyebrow reveal">from the archive</h2>
+      <a class="strip-all reveal" href="photographs.html">All 42 photographs &rarr;</a>
+    </div>
+    <div class="strip-rail" tabindex="0" role="region" aria-label="Photographs, scroll sideways">
+      <a class="strip-shot" href="photographs.html#terraces">
+        <img src="assets/photos/terraces.jpg" alt="Paddy terraced into a hillside in Kandhamal, banana and palm above the bunds"
+             width="1600" height="900" loading="lazy" decoding="async">
+        <span>Paddy terraced into the hillside</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#paddy-plain">
+        <img src="assets/photos/paddy-plain.jpg" alt="Green paddy stretching to low hills under a flat grey monsoon cloud, date palms and scrub in the foreground, a power line crossing the frame"
+             width="1600" height="846" loading="lazy" decoding="async">
+        <span>The whole plain under one cloud</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#cattle-hill">
+        <img src="assets/photos/cattle-hill.jpg" alt="White and brown cattle grazing on rough ground below a forested hill, a strip of paddy turning yellow behind them, a metalled road curving away to the left"
+             width="1256" height="1600" loading="lazy" decoding="async">
+        <span>Cattle out below the hill, paddy turning</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#tank-railing">
+        <img src="assets/photos/tank-railing.jpg" alt="A rectangular village tank with stepped concrete sides, the railings around it painted yellow and blue, green paddy and houses on the far bank with a hill behind"
+             width="1600" height="846" loading="lazy" decoding="async">
+        <span>The tank, and the railings someone painted</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#bike-dusk">
+        <img src="assets/photos/bike-dusk.jpg" alt="A motorcycle standing alone on a red earth track along a ridge, a grey plastered house with a metal roof behind it, hills and a yellow evening sky"
+             width="1600" height="846" loading="lazy" decoding="async">
+        <span>The bike left on the ridge track at dusk</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#market-hills">
+        <img src="assets/photos/market-hills.jpg" alt="The market road with hills rising behind the shopfronts"
+             width="1600" height="739" loading="lazy" decoding="async">
+        <span>Market road, hills behind</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#thali">
+        <img src="assets/photos/thali.jpg" alt="Rice, dal and greens served in steel bowls"
+             width="901" height="1600" loading="lazy" decoding="async">
+        <span>Rice, dal and greens</span>
+      </a>
+      <a class="strip-shot" href="photographs.html#fire-night">
+        <img src="assets/photos/fire-night.jpg" alt="People standing around a fire after dark"
+             width="1600" height="1600" loading="lazy" decoding="async">
+        <span>The fire after dark</span>
       </a>
     </div>
   </section>
@@ -215,6 +273,43 @@
     bar.style.width = (pct * 100) + '%';
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
+
+  /* ---- Mobile menu ----
+     Six nav items need ~418px and a 390px phone gives the strip ~316px, so the
+     Pilot link sat off the edge. The button is invisible without .js, so this is
+     the only thing that can open the panel — there is no CSS-only state to
+     drift out of sync with aria-expanded. */
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (toggle && links) {
+    var setMenu = function (open) {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      links.classList.toggle('open', open);
+    };
+    toggle.addEventListener('click', function () {
+      setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    // A same-page anchor does not reload, so without this the panel stays open
+    // over the section it just jumped to.
+    links.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (nav && !nav.contains(e.target)) setMenu(false);
+    });
+    // Rotating to landscape crosses the breakpoint; the panel would otherwise be
+    // left open as a stray block under a nav that is no longer collapsed.
+    addEventListener('resize', function () {
+      if (innerWidth > 768) setMenu(false);
+    }, { passive: true });
+  }
 })();
 </script>
 

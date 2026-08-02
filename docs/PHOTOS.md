@@ -59,7 +59,6 @@ photographs — they carry a blank `group` in the manifest and so do not appear 
 | school-selfie | Everyone wants to be in it | Sarangada | Every child within twenty metres arrived the moment the phone came out. Hands up, peace signs, one climbing on the bench. Not all of them are in uniform — some are younger siblings who came along. April 2026. Consent: held — school and families, confirmed by Chandan, 31 Jul 2026. |
 | school-walk | Walking back with the school | Sarangada | Walking the road with the school strung out behind. A teal-painted building, wires overhead, hills flattening into haze. A thumbs up from one boy, a girl in a yellow headscarf, a small tricolour in someone's hand at the right. Winter light. Consent: held — school and families, confirmed by Chandan, 31 Jul 2026. |
 | bike-dusk | The bike left on the ridge track at dusk | May 2025 |  |
-| bike-dusk-2 | Same ridge, a minute later | May 2025 |  |
 | fire-night | The fire after dark | Sarangada · Jan 2025 | Four people standing around an open fire at night, one seated on a plastic stool on a phone. Firelight only. Use this one for a post about evenings — there is no wifi after seven and nobody minds. Consent: held. |
 | football-wide | The whole village at the football ground | Sarangada · Oct 2024 | A wide panorama, 8096px original. Match in progress on red earth, spectators lining the far edge, goalpost with a yellow net at left. Two heads in the foreground, watching. Consent: held. |
 | ground-red | Red earth, before the match | Sarangada · Oct 2024 | The empty football ground, red earth in the foreground, tree line and low buildings behind. Wide, quiet. |
@@ -67,7 +66,6 @@ photographs — they carry a blank `group` in the manifest and so do not appear 
 | road-sunset | Sunset over the village road | Sarangada · Oct 2024 | Sun going down the length of the road, houses either side, wires overhead, a parked white car. |
 | roofs-dusk | Sun going down behind the roofs | Jun 2026 | Photographer not stamped on the file - needs a name. |
 | sunset-wires | Orange over the wires | 25 Jun 2026 | Arrived as a letterboxed screenshot with a Meta AI badge in the padding. Cropped to the photograph itself. Ask Ananta for the camera original. |
-| sunset-wires-2 | A minute later, same sky | 25 Jun 2026 | Same letterboxed screenshot problem as sunset-wires. Cropped to the photograph. Ask Ananta for the original. |
 | tank-railing | The tank, and the railings someone painted | Aug 2025 | Two people sit on the far walkway, too small to identify. |
 | water-tower | The water tower at dusk | Sarangada · May 2024 | The concrete water tower against an orange evening sky, a motorcycle on the road below, shopfronts down the right. |
 | yard-monsoon | What the monsoon does to a yard in a fortnight | Oct 2025 |  |
