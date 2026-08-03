@@ -190,6 +190,18 @@ p + p { margin-top: 1.4em; }
   text-align: center;
 }
 
+.hero-caption {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: rgba(245, 239, 228, 0.7);
+  z-index: 2;
+  font-family: var(--font-body);
+}
+.cap-mobile { display: none; }
+
 .hero-kicker {
   font-family: var(--font-body);
   font-size: 0.78rem;
@@ -671,7 +683,11 @@ section[id], header[id] { scroll-margin-top: 84px; }
     max-width: 100vw;
     overflow-x: clip;
   }
-  .wordmark { font-size: clamp(2.6rem, 12vw, 4.2rem); }
+  .wordmark { font-size: clamp(2.2rem, 10.5vw, 4.2rem); }
+  .hero-kicker { font-size: 0.65rem; letter-spacing: 0.15em; }
+  .hero-caption { right: 1.2rem; bottom: 1.2rem; }
+  .cap-desktop { display: none; }
+  .cap-mobile { display: inline; }
   .site-nav { padding: 0.6rem 0.9rem; gap: 0.8rem; }
   .brand-logo { width: 32px; height: 32px; }
   .brand-mark { font-size: 1.1rem; gap: 0.5rem; }
