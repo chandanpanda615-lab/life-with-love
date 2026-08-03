@@ -13,3 +13,10 @@ _incoming/*
 Village_Image/
 tools/realesrgan/
 
+# YouTube channel art: drafts and exports for the channel itself, not site assets.
+# Nothing on the site links to them, so they would only bloat the repo and get
+# served from maatirakatha.com for no reason. Same rule as Village_Image/.
+youtube_assets/
+youtube-banner.jpg
+youtube-logo.png
+

@@ -47,8 +47,8 @@
   /* ---------- album bar ---------------------------------------------------------
      Each chip names one album below and opens it, closing the others, so the page
      stays one album long instead of seven. "everything" shuts them all and gives
-     the seven covers back — that is the page's resting state, not a wall of 29
-     photographs. Runs before the lightbox sets up, so the bar still works on a
+     the seven covers back — that is the page's resting state, not a wall of every
+     photograph at once. Runs before the lightbox sets up, so the bar still works on a
      browser with no <dialog>. */
   var chips = [].slice.call(document.querySelectorAll('.tag-chip[data-album]'));
   var albums = [].slice.call(document.querySelectorAll('.album'));
