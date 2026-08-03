@@ -62,10 +62,16 @@ page and strips the nav and hero gradients. Do not remove it.
 | `--font-accent` | Caveat | eyebrows only |
 | `--font-body` | `system-ui` stack | everything else |
 
-All three display faces are embedded as base64 woff2 in the `<style>` block, so the
-page has no network font dependency. **Nothing else may be added to that stack
-without embedding it** — `'Inter'` was named there for a while without ever being
-embedded, and every line of body text silently fell back to `system-ui`.
+The display faces live in `assets/fonts/` as real woff2 files, loaded by the
+`@font-face` blocks at the top of `site.css` with `font-display: swap`. They were
+base64-inlined until they were measured: at 192 KB they were 82% of a
+render-blocking stylesheet, so nothing painted until every font byte arrived, and
+`swap` could never fire because the bytes were inside the CSS itself. Splitting
+them cut `site.css` from 234 KB to 42 KB. **Do not inline them again.**
+
+**Nothing may be added to the stack without shipping the file** — `'Inter'` was
+named there for a while with no font behind it, and every line of body text
+silently fell back to `system-ui`.
 
 Scale: `--text-sm` through `--text-hero`, all in the `:root` block. `--measure: 60ch`
 caps line length; the hero lede is tighter at `46ch`.
