@@ -7,7 +7,16 @@ Nuagaon Block, Kandhamal, Odisha** (20.227°N, 84.124°E). It is **not open**. C
 Bangalore finishing CA Final; the village opens to visitors around 2028. Everything built
 now is groundwork — the site, the photograph archive, and the writing.
 
-Published at `https://chandanpanda615-lab.github.io/life-with-love/` from `main`.
+Published at **`https://maatirakatha.com/`** from `main` (GitHub Pages, `CNAME` holds the
+apex domain, Enforce HTTPS is on). The repo is `chandanpanda615-lab/Maati-ra-katha`.
+
+The old `chandanpanda615-lab.github.io/life-with-love/` URL is **dead — it 404s**. It
+survived in the `og:` tags of four pages long after the move and sent every social share
+to a missing page. If you see `life-with-love` anywhere, it is a bug:
+
+```bash
+grep -rn 'life-with-love\|www\.maatirakatha' *.html   # must return nothing
+```
 
 ## The rules that are not negotiable
 
@@ -31,12 +40,13 @@ generator solved that. Do not reintroduce a bundler without a concrete reason.
 
 | File | Holds |
 |---|---|
-| `index.html` | hero, status band, door cards, manifesto |
-| `land.html` | the notes. **No gallery** — one photograph belongs in exactly one place |
+| `index.html` | hero, status band, door cards, filmstrip, journal, manifesto |
+| `land.html` | the notes. **No photographs** — `#gallery` is a signpost section pointing next door, kept so old links still land |
 | `photographs.html` | "Moments and Memories" — seven album covers; click one to open that set |
-| `days.html` | the seven experiences; photo frames deliberately empty until real ones exist |
+| `days.html` | the seven experiences. The "Seven held frames" block is **commented out** (`days.html:79-96`) and currently renders nothing |
 | `visit.html` | how to reach, writing, pilot enquiry |
-| `assets/site.css` | everything visual, 42 KB. Fonts are real files in `assets/fonts/` — never inline them back |
+| `posts/*.html` | the journal. **Standalone pages** — no site nav, no footer, no `site.css`, forked palette. Known gap, needs a pass |
+| `assets/site.css` | everything visual, 52 KB. Fonts are real `.woff2` in `assets/fonts/` — never inline them back |
 | `assets/gallery.js` | lightbox, swipe, related-by-tag, `?tag=` filter |
 | `tools/photos.py` | the whole photo pipeline |
 
@@ -86,19 +96,70 @@ Render replaces **only** what is between them. Everything else in those files is
 hand-written and safe. Render is idempotent — running it twice must produce no diff, and
 `tools/test_photos.py` checks that.
 
-## Current state (31 Jul 2026)
+### What the generator does NOT reach
 
-- 29 photographs published across 7 sections, all on `photographs.html`. **No photograph
-  appears on two pages** — that was a real bug, and `land.html` lost its gallery to fix it.
+`index.html` is outside the markers entirely. Its filmstrip (8 photos, a deliberate teaser
+that links *into* the archive — not a second gallery) and its **"All N photographs" count**
+are hand-maintained. The count drifted to 42 while the real number was 40. After every
+`render`, check it:
+
+```bash
+grep -o 'All [0-9]* photographs' index.html   # must equal:
+ls assets/photos/*.jpg | wc -l
+```
+
+## The `<head>` convention — all five pages
+
+This has broken once already. Every page needs, with the **apex** domain and **no `www.`**
+(`www` 301-redirects, and several link unfurlers will not follow a redirect for `og:image`,
+so the photograph silently vanishes from the share card):
+
+- `og:url` and `canonical` → `https://maatirakatha.com/<page>.html`
+- `og:image` / `twitter:image` → `https://maatirakatha.com/assets/<img>.jpg` — **same
+  origin**. Never `raw.githubusercontent.com`; it serves images as `text/plain` and card
+  scrapers reject them.
+
+`robots.txt` and `sitemap.xml` sit in the repo root. Add a `<url>` line to the sitemap when
+you add a page.
+
+## Current state (3 Aug 2026)
+
+- **40 photographs** across 7 albums (land 10, village 11, work 1, school 13, festival 1,
+  food 1, market 3), all on `photographs.html`. The archive lives there **once**;
+  duplicating it onto `land.html` put eight photos on two pages and cost that page its
+  gallery. `index.html`'s filmstrip is a curated teaser linking into the archive.
 - The 13 school photographs are live; consent is recorded per row in the manifest.
 - `days.html` copy is a **draft** Chandan intends to rewrite in his own words.
 - The archive is albums, not one long scroll: each group is a `<details>` closed by
   default. The lightbox scopes to the album you opened, so swiping stays in that set.
-- Footer social links are **placeholders** (`href="#"`) on all five pages, awaiting real URLs.
-- Video originals and `Village_Image/` are local only.
+- Footer social links are **real** on all five pages: Instagram, X, YouTube
+  (`@MaatiRaKatha`). The footer block is byte-identical across the five — change it in one
+  place and copy it to the other four.
+- The mobile hero (`hero-portrait.jpg`) is a **different photograph** from the desktop one,
+  not a crop: women sorting harvest on red earth. That is why `.cap-desktop` and
+  `.cap-mobile` in `index.html` say different things. Change an image, change its caption.
+- Video originals, `Village_Image/` and `youtube_assets/` are local only, all gitignored.
+
+### Known gaps, not yet fixed
+
+- `posts/*.html` are off-template: no nav, no footer, no share tags, and they fork the
+  palette in their own `:root` instead of loading `site.css`. Both set headings to Georgia,
+  so Cormorant never appears on either post.
+- `--font-accent` (Caveat) is used on ~8 headings; `docs/BRAND.md` says **eyebrows only**.
+- ~20 rules name `var(--turmeric)` directly where `--accent` is required, so they stay
+  turmeric on light-theme pages where the accent should be laterite.
+- `assets/photos/` is 8.4 MB. `tools/photos.py build` already resizes; the cap is generous.
 
 ## Voice
 
 Short sentences. Concrete nouns — chulha, paddy, jharana, borewell, laterite. Never
 "authentic", "immersive", "vibrant", "nestled", "hidden gem". Say what is in the frame.
-Full brand reference in `BRAND.md`; do not restyle without reading it.
+Full brand reference in **`docs/BRAND.md`**; do not restyle without reading it.
+
+## Before you commit
+
+```bash
+python tools/photos.py render && python tools/test_photos.py   # 6 tests, incl. consent guard
+git diff --stat                                                # render must be a no-op
+grep -rn 'life-with-love\|www\.maatirakatha' *.html            # must be empty
+```

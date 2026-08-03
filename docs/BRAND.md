@@ -78,17 +78,25 @@ caps line length; the hero lede is tighter at `46ch`.
 
 ## Structure
 
-Three pages, deliberately. The site does not scroll through the whole project — the
-homepage offers doors and you click into them.
+Five pages. The site does not scroll through the whole project — the homepage offers
+doors and you click into them.
 
 | Page | Holds |
 |---|---|
-| `index.html` | hero, status band, the two door cards, manifesto — about 3 screens |
-| `land.html` | the notes, the plain description of the land, the photographs |
+| `index.html` | hero, status band, the two door cards, filmstrip, journal, manifesto |
+| `land.html` | the notes and the plain description of the land. **No photographs** — `#gallery` is a signpost to `photographs.html`, kept so old links still land |
+| `photographs.html` | the archive: seven albums, 40 photographs. Generated between the `GALLERY` markers by `tools/photos.py` |
+| `days.html` | the seven experiences |
 | `visit.html` | how to reach, writing, the pilot enquiry |
 
-All three share `assets/site.css`. Keep it that way: the CSS carries four embedded
-base64 fonts, so inlining it per page would triple ~217 KB.
+All five share `assets/site.css` (52 KB). **Keep it that way.**
+
+An earlier note here said the CSS carried "four embedded base64 fonts" and inlining it
+per page would triple ~217 KB. That has not been true since the fonts were split out:
+they are four real `.woff2` files in `assets/fonts/`, loaded by `@font-face` at the top
+of `site.css`, and there is no base64 anywhere in it. The claim outlived the change and
+is still quoted in `posts/first-post.html` as the reason those pages fork the stylesheet.
+**There is no blocker — the posts should load `site.css` like everything else.**
 
 Each page sets its own backdrop with a body class (`bg-hero`, `bg-land`, `bg-road`).
 There is no drawn canvas any more — every page sits on a real, darkened photograph.
@@ -115,10 +123,19 @@ Nothing is upscaled. An earlier pass ran Real-ESRGAN 4× over compressed 1080p v
 frames; it invented detail that was never in the footage and the results looked fake.
 Video frames are published at native resolution or not at all.
 
-The gallery on `land.html` is a hand-curated mosaic. Cards take `--feature` (4×2),
-`--tall` (2×2, for portraits) or `--wide` (4×1, for panoramas); no modifier gives an
-ordinary 2×1 cell. Every published photograph, its source and a longer description are
-logged in `PHOTOS.md` — the working manifest lives in `_incoming/` and is not committed.
+The archive is a hand-curated mosaic and lives on `photographs.html`, not `land.html` —
+duplicating a selection onto that page put eight photographs on two pages at once, and
+the gallery was removed from it to fix that. Cards take `--feature` (4×2), `--tall` (2×2,
+for portraits) or `--wide` (4×1, for panoramas); no modifier gives an ordinary 2×1 cell.
+
+Every published photograph, its source and a longer description are logged in
+`docs/PHOTOS.md`. **`_incoming/manifest.csv` is committed** — it is the single source of
+every caption, consent record and gallery position, and losing it with the originals
+would lose all of that. Only the image originals in `_incoming/` are gitignored.
+
+`hero-portrait.jpg` is a **separate photograph**, not a crop of `hero.jpg`. The desktop
+and mobile hero captions in `index.html` therefore differ on purpose, and both must stay
+true to their own frame.
 
 ## Voice
 
